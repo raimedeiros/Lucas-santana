@@ -49,7 +49,7 @@ export const site = {
   analytics: {
     umamiId: '',
     umamiSrc: 'https://cloud.umami.is/script.js',
-    googleAnalyticsId: '', // ex.: G-XXXXXXXXXX
+    googleAnalyticsId: 'G-XHMZ32YD9F',
   },
 };
 
