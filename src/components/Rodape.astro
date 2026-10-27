@@ -12,8 +12,8 @@ const ano = new Date().getFullYear();
     <div class="rodape__marca">
       <Image src={assinatura} alt={`${site.nome} — ${site.especialidade} — ${site.crm} · ${site.rqeReumatologia}`} width={220} />
       <p class="rodape__registros">
-        Médico | {site.crm}<br />
-        Reumatologia — {site.rqeReumatologia}<br />
+        Médico | {site.crm}{' '}<br />
+        Reumatologia — {site.rqeReumatologia}{' '}<br />
         Clínica Médica — {site.rqeClinicaMedica}
       </p>
     </div>
@@ -21,12 +21,12 @@ const ano = new Date().getFullYear();
     <div>
       <p class="rodape__titulo">Consulta particular</p>
       <address>
-        {site.clinica.nome}<br />
-        {site.clinica.logradouro}<br />
+        {site.clinica.nome}{' '}<br />
+        {site.clinica.logradouro}{' '}<br />
         {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}
       </address>
       <p class="rodape__agendamento">
-        Agendamento com {site.whatsapp.secretaria}<br />
+        Agendamento com {site.whatsapp.secretaria}{' '}<br />
         WhatsApp {site.whatsapp.exibicao}
       </p>
     </div>

@@ -20,10 +20,10 @@ import { comoChegarUrl, site } from '../site.config';
         <div class="local__bloco">
           <p class="local__titulo">Endereço</p>
           <address>
-            <strong>{site.clinica.nome}</strong><br />
-            {site.clinica.predio}<br />
-            {site.clinica.logradouro}<br />
-            {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}<br />
+            <strong>{site.clinica.nome}</strong>{' '}<br />
+            {site.clinica.predio}{' '}<br />
+            {site.clinica.logradouro}{' '}<br />
+            {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}{' '}<br />
             CEP {site.clinica.cep}
           </address>
         </div>
@@ -31,7 +31,7 @@ import { comoChegarUrl, site } from '../site.config';
         <div class="local__bloco">
           <p class="local__titulo">Agendamento e informações</p>
           <p>
-            {site.whatsapp.secretaria}<br />
+            {site.whatsapp.secretaria}{' '}<br />
             WhatsApp: {site.whatsapp.exibicao}
           </p>
         </div>
