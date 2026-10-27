@@ -12,10 +12,12 @@ interface Props {
   src?: ImageMetadata;
   /** Enquadramento no corte (CSS object-position), ex.: 'center 25%'. */
   posicao?: string;
+  /** Aproximação (1 = sem zoom). Amplia em torno de `posicao`. */
+  zoom?: number;
   eager?: boolean;
   class?: string;
 }
-const { formato, alt, legenda, src, posicao = 'center', eager = false, class: classe } = Astro.props;
+const { formato, alt, legenda, src, posicao = 'center', zoom = 1, eager = false, class: classe } = Astro.props;
 
 // Nunca amplia além do tamanho original da foto.
 const larguras = src ? [400, 640, 960, 1280].filter((w) => w < src.width).concat(src.width) : [];
@@ -31,7 +33,7 @@ const larguras = src ? [400, 640, 960, 1280].filter((w) => w < src.width).concat
         sizes="(min-width: 60rem) 34vw, 90vw"
         loading={eager ? 'eager' : 'lazy'}
         fetchpriority={eager ? 'high' : undefined}
-        style={`object-position: ${posicao}`}
+        style={`object-position: ${posicao};${zoom !== 1 ? ` transform: scale(${zoom}); transform-origin: ${posicao};` : ''}`}
       />
     </figure>
   ) : (
