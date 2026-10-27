@@ -6,7 +6,7 @@ import Consentimento from '../components/Consentimento.astro';
 import CtaFixo from '../components/CtaFixo.astro';
 import Fechamento from '../components/Fechamento.astro';
 import Rodape from '../components/Rodape.astro';
-import { link, site } from '../site.config';
+import { link, site, whatsappUrl } from '../site.config';
 
 interface Props {
   title: string;
@@ -53,9 +53,32 @@ const medico = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.clinica.latitude, longitude: site.clinica.longitude },
   areaServed: { '@type': 'City', name: 'Brasília' },
+  priceRange: site.consulta.valorExibicao,
+  audience: { '@type': 'PeopleAudience', suggestedMinAge: site.consulta.idadeMinima },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: site.avaliacoesGoogle.nota,
+    reviewCount: site.avaliacoesGoogle.total,
+    bestRating: 5,
+  },
+  // Consulta particular, presencial ou por teleconsulta (primeira consulta e retorno).
+  makesOffer: {
+    '@type': 'Offer',
+    price: site.consulta.valor,
+    priceCurrency: 'BRL',
+    itemOffered: {
+      '@type': 'Service',
+      name: 'Consulta de Reumatologia (retorno em até 30 dias incluído)',
+      availableChannel: [
+        { '@type': 'ServiceChannel', name: 'Presencial', serviceLocation: { '@id': `${site.dominio}/#clinica` } },
+        { '@type': 'ServiceChannel', name: 'Teleconsulta', serviceUrl: whatsappUrl },
+      ],
+    },
+  },
   sameAs: [site.instagram.url, site.googlePerfil].filter(Boolean),
   workLocation: {
     '@type': 'MedicalClinic',
+    '@id': `${site.dominio}/#clinica`,
     name: site.clinica.nome,
     address: {
       '@type': 'PostalAddress',

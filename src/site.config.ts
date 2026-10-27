@@ -12,8 +12,8 @@ export const site = {
     numero: '5561999190211',
     exibicao: '(61) 99919-0211',
     secretaria: 'Scheila',
-    mensagem:
-      'Olá! Encontrei o Dr. Lucas Santana pelo site e gostaria de informações para agendar uma consulta particular de Reumatologia.',
+    // Mensagem neutra: o WhatsApp atende consulta particular e teleconsulta.
+    mensagem: 'Olá, gostaria de agendar uma consulta com o Dr. Lucas Santana.',
   },
 
   email: 'lucasreumato@gmail.com',
@@ -23,9 +23,22 @@ export const site = {
     url: 'https://www.instagram.com/lucasreumato/',
   },
 
-  // Link "ver todas as avaliações" do Perfil da Empresa no Google. Vazio = link oculto.
-  googlePerfil: '',
+  // Perfil da Empresa no Google (link "Ver avaliações no Google").
+  googlePerfil: 'https://share.google/qqPmSrmZ2p4yHqbbC',
+  // Conferir de tempos em tempos no Perfil do Google e atualizar aqui (também vai para o JSON-LD).
+  avaliacoesGoogle: { nota: 5, total: 9 },
 
+  // Fatos confirmados pelo Dr. Lucas.
+  consulta: {
+    valor: 500,
+    valorExibicao: 'R$ 500',
+    idadeMinima: 18,
+  },
+
+  // TODO(confirmar com o cliente): o site diz "SGAN 915", o Perfil do Google diz "SGAN 916".
+  // O logradouro abaixo alimenta: endereço da página Onde Atendo, rodapé, capa do mapa, mapa
+  // incorporado e link "Como chegar" (via enderecoBusca) e o JSON-LD (Base.astro). A meta
+  // description de onde-atendo.astro repete "SGAN 915" à mão. Coordenadas: ver latitude/longitude.
   clinica: {
     nome: 'Clínica Mirindiba Especialidades Médicas',
     predio: 'Golden Office Corporate',
@@ -39,11 +52,18 @@ export const site = {
     longitude: -47.9017,
   },
 
+  // Atendimento por plano: o site não lista planos; a cobertura é verificada por cada unidade.
   convenios: [
-    'Hospital Brasília — Unidade Águas Claras',
-    'Hospital Brasília — Unidade Ceilândia',
-    'Espaço Saúde Unimed Brasília',
-  ],
+    {
+      nome: 'Hospital Brasília — Unidades Águas Claras e Ceilândia',
+      central: 'Central de agendamento Rede Américas',
+      telefone: '+551140200057',
+      telefoneExibicao: '(11) 4020-0057',
+      portal: 'https://hac.portaldeagendamento.com.br/',
+    },
+    // TODO: contato do Espaço Saúde Unimed pendente com o cliente (telefone e/ou link de agendamento).
+    { nome: 'Espaço Saúde Unimed Brasília' },
+  ] as { nome: string; central?: string; telefone?: string; telefoneExibicao?: string; portal?: string }[],
 
   // IDs de medição. Vazio = o script não é carregado.
   analytics: {
@@ -52,10 +72,6 @@ export const site = {
     googleAnalyticsId: 'G-XHMZ32YD9F',
   },
 };
-
-// Avaliações do Google (Res. CFM 2.336/2023): 3 a 5, sóbrias, só primeiro nome ou iniciais.
-// Lista vazia = seção oculta.
-export const avaliacoes: { texto: string; autor: string }[] = [];
 
 export const whatsappUrl = `https://wa.me/${site.whatsapp.numero}?text=${encodeURIComponent(site.whatsapp.mensagem)}`;
 

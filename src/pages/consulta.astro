@@ -1,6 +1,7 @@
 ---
 import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
 import Icone from '../components/Icone.astro';
+import InfoPratica from '../components/InfoPratica.astro';
 import Base from '../layouts/Base.astro';
 
 const perguntas = [
@@ -114,6 +115,13 @@ const preparo = [
           ))
         }
       </ol>
+    </div>
+  </section>
+
+  <section class="secao info-pratica" aria-labelledby="info-pratica">
+    <div class="container revelar">
+      <h2 id="info-pratica" class="rotulo">Informações práticas</h2>
+      <InfoPratica itens={['duracao', 'retorno', 'valor', 'formato']} />
     </div>
   </section>
 
@@ -313,5 +321,9 @@ const preparo = [
 
   .cta {
     margin-top: 2rem;
+  }
+
+  .info-pratica h2 {
+    margin-bottom: 1rem;
   }
 </style>

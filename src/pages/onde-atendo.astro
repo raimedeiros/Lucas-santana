@@ -1,8 +1,10 @@
 ---
 import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Icone from '../components/Icone.astro';
 import Mapa from '../components/Mapa.astro';
 import Base from '../layouts/Base.astro';
 import { comoChegarUrl, site } from '../site.config';
+// TODO(endereço 915/916): a description abaixo repete "SGAN 915" à mão; ver site.config.ts.
 ---
 
 <Base
@@ -26,6 +28,10 @@ import { comoChegarUrl, site } from '../site.config';
             {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}{' '}<br />
             CEP {site.clinica.cep}
           </address>
+          <ul class="local__extras">
+            <li>Acessível · elevador · estacionamento · acompanhante bem-vindo</li>
+            <li>Também por teleconsulta</li>
+          </ul>
         </div>
 
         <div class="local__bloco">
@@ -43,6 +49,7 @@ import { comoChegarUrl, site } from '../site.config';
           </a>
         </div>
       </div>
+      {/* TODO: fotos do consultório em alta resolução (Google Drive) entram aqui, junto do mapa. */}
       <Mapa />
     </div>
   </section>
@@ -69,11 +76,40 @@ import { comoChegarUrl, site } from '../site.config';
       </div>
       <div class="revelar">
         <ul class="convenios">
-          {site.convenios.map((c) => <li>{c}</li>)}
+          {
+            site.convenios.map((c) => (
+              <li>
+                <span class="convenios__nome">{c.nome}</span>
+                {c.telefone && c.portal && (
+                  <>
+                    <div class="acoes convenios__acoes">
+                      <a class="botao" href={`tel:${c.telefone}`} data-evento="telefone-convenio" data-origem="onde-atendo">
+                        <Icone nome="telefone" />
+                        <span>Ligar para a central</span>
+                        <span class="sr-only">{c.central}: {c.telefoneExibicao}</span>
+                      </a>
+                      <a
+                        class="botao botao--contorno"
+                        href={c.portal}
+                        target="_blank"
+                        rel="noopener"
+                        data-evento="portal-convenio"
+                        data-origem="onde-atendo"
+                      >
+                        Agendar pelo portal
+                        <span class="sr-only">(abre em nova aba)</span>
+                      </a>
+                    </div>
+                    <p class="convenios__nota">A cobertura do seu plano é verificada diretamente pelo hospital.</p>
+                  </>
+                )}
+              </li>
+            ))
+          }
         </ul>
         <p class="texto-secundario texto">
           Os planos aceitos, horários e agendamentos nesses serviços são administrados diretamente pelas respectivas
-          instituições. Para consultas por convênio, consulte os canais oficiais de cada unidade.
+          instituições.
         </p>
       </div>
     </div>
@@ -130,7 +166,40 @@ import { comoChegarUrl, site } from '../site.config';
   .convenios li {
     padding-block: 1rem;
     border-bottom: 1px solid rgba(36, 90, 102, 0.25);
+  }
+
+  .convenios__nome {
     font-size: 1.1875rem;
+  }
+
+  .convenios__acoes {
+    margin-top: 1rem;
+  }
+
+  .convenios__nota {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    color: var(--cinza-texto);
+  }
+
+  .local__extras {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.25rem;
+    font-size: 1rem;
+    color: var(--grafite);
+  }
+
+  .local__extras li::before {
+    content: '';
+    display: inline-block;
+    width: 0.375rem;
+    height: 0.375rem;
+    margin: 0 0.625rem 0.15rem 0;
+    border-radius: 50%;
+    background: var(--petroleo);
   }
 
   .convenios li:first-child {

@@ -1,0 +1,102 @@
+---
+// Informações práticas da consulta em itens curtos e escaneáveis (Home e página A Consulta).
+import { site, whatsappUrl } from '../site.config';
+import Icone from './Icone.astro';
+import type { Props as IconeProps } from './Icone.astro';
+
+type Chave = 'duracao' | 'retorno' | 'valor' | 'formato' | 'acessibilidade' | 'publico' | 'horarios';
+
+interface Props {
+  /** Quais itens mostrar, na ordem. Padrão: todos. */
+  itens?: Chave[];
+  class?: string;
+}
+
+const todos: Record<Chave, { icone: IconeProps['nome']; texto: string }> = {
+  duracao: { icone: 'relogio', texto: 'Consulta de 45 min a 1 h' },
+  retorno: { icone: 'retorno', texto: 'Retorno em até 30 dias incluso' },
+  valor: { icone: 'recibo', texto: `Particular: ${site.consulta.valorExibicao} · emite recibo para reembolso` },
+  formato: { icone: 'video', texto: 'Presencial na Asa Norte ou por teleconsulta' },
+  acessibilidade: { icone: 'acessivel', texto: 'Consultório acessível, com elevador e estacionamento' },
+  publico: { icone: 'pessoa', texto: `Atendimento para adultos (a partir de ${site.consulta.idadeMinima} anos)` },
+  horarios: { icone: 'calendario', texto: 'Horários: consulte a agenda pelo WhatsApp' },
+};
+
+const { itens = Object.keys(todos) as Chave[], class: classe } = Astro.props;
+---
+
+<ul class:list={['info', classe]}>
+  {
+    itens.map((chave) => (
+      <li>
+        <span class="info__icone">
+          <Icone nome={todos[chave].icone} />
+        </span>
+        {chave === 'horarios' ? (
+          <span>
+            Horários: consulte a agenda pelo{' '}
+            <a href={whatsappUrl} target="_blank" rel="noopener" data-evento="whatsapp" data-origem="info-horarios">
+              WhatsApp
+            </a>
+          </span>
+        ) : (
+          <span>{todos[chave].texto}</span>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .info {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  @media (min-width: 40rem) {
+    .info {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .info {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .info li {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-block: 0.875rem;
+    border-top: 1px solid var(--linha);
+    font-size: 1.0625rem;
+    line-height: 1.4;
+    color: var(--grafite);
+  }
+
+  .info__icone {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px 8px 8px 18px;
+    background: var(--petroleo-tom);
+    color: var(--petroleo);
+  }
+
+  .info__icone :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .info a {
+    color: var(--petroleo);
+    font-weight: 600;
+  }
+</style>

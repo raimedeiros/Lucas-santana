@@ -3,7 +3,9 @@ import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
 import Base from '../layouts/Base.astro';
 import { site } from '../site.config';
 
-const perguntas = [
+const hospital = site.convenios[0];
+
+const perguntas: { pergunta: string; resposta: string; html?: string }[] = [
   {
     pergunta: 'Preciso ter um diagnóstico para marcar consulta?',
     resposta:
@@ -39,9 +41,46 @@ const perguntas = [
       'Sim. Realizo investigação e acompanhamento de doenças autoimunes e inflamatórias, incluindo artrite reumatoide, lúpus, síndrome de Sjögren, espondiloartrites, artrite psoriásica, vasculites e outras condições reumatológicas.',
   },
   {
-    pergunta: 'Atende por plano de saúde?',
+    pergunta: 'Já tenho diagnóstico. Você faz acompanhamento?',
     resposta:
-      'Sim, em locais específicos. Os atendimentos por convênio são realizados no Hospital Brasília — Unidades Águas Claras e Ceilândia — e no Espaço Saúde Unimed Brasília. Os planos aceitos, horários e agendamentos são administrados diretamente por essas instituições. O atendimento na Clínica Mirindiba é particular.',
+      'Sim. Faço acompanhamento contínuo de quem já tem diagnóstico, incluindo prescrição e acompanhamento de imunobiológicos e emissão de laudos para medicamentos de alto custo.',
+  },
+  {
+    pergunta: 'Atende crianças?',
+    resposta: `Não. O atendimento é para adultos, a partir de ${site.consulta.idadeMinima} anos.`,
+  },
+  {
+    pergunta: 'Quanto tempo dura a consulta?',
+    resposta:
+      'A consulta dura de 45 minutos a 1 hora, com tempo para ouvir sua história, examinar e explicar os próximos passos.',
+  },
+  {
+    pergunta: 'O retorno está incluído?',
+    resposta: 'Sim. O retorno em até 30 dias está incluído no valor da consulta.',
+  },
+  {
+    pergunta: 'Qual o valor da consulta?',
+    resposta: `A consulta particular custa ${site.consulta.valorExibicao}, com retorno em até 30 dias incluído. Emito recibo para que você possa solicitar reembolso ao seu plano de saúde.`,
+  },
+  {
+    pergunta: 'Atende por plano de saúde?',
+    resposta: `Sim, em locais específicos. Na Clínica Mirindiba, o atendimento é particular, com recibo para reembolso. Pelo plano, o atendimento é no Hospital Brasília — Unidades Águas Claras e Ceilândia — e no Espaço Saúde Unimed Brasília, e a cobertura é verificada diretamente pela unidade. Para o Hospital Brasília, agende pela central da Rede Américas, no telefone ${hospital.telefoneExibicao}, ou pelo portal de agendamento.`,
+    // Mesma resposta, com o telefone e o portal clicáveis.
+    html: `Sim, em locais específicos. Na Clínica Mirindiba, o atendimento é particular, com recibo para reembolso. Pelo plano, o atendimento é no Hospital Brasília — Unidades Águas Claras e Ceilândia — e no Espaço Saúde Unimed Brasília, e a cobertura é verificada diretamente pela unidade. Para o Hospital Brasília, agende pela central da Rede Américas, no telefone <a href="tel:${hospital.telefone}" data-evento="telefone-convenio" data-origem="faq">${hospital.telefoneExibicao}</a>, ou pelo <a href="${hospital.portal}" target="_blank" rel="noopener" data-evento="portal-convenio" data-origem="faq">portal de agendamento</a>.`,
+  },
+  {
+    pergunta: 'Quais são os dias e horários de atendimento?',
+    resposta: 'As agendas são abertas conforme a demanda e podem variar. Consulte os horários disponíveis pelo WhatsApp.',
+  },
+  {
+    pergunta: 'Faz teleconsulta?',
+    resposta:
+      'Sim. A teleconsulta está disponível tanto para a primeira consulta quanto para o retorno. Agende pelo WhatsApp.',
+  },
+  {
+    pergunta: 'O consultório é acessível? Posso levar acompanhante?',
+    resposta:
+      'Sim. O consultório é acessível, com elevador e estacionamento, e você pode vir com acompanhante.',
   },
   {
     pergunta: 'Como agendar a consulta particular?',
@@ -80,7 +119,7 @@ const faqJsonLd = {
                 <summary>
                   <span>{p.pergunta}</span>
                 </summary>
-                <p>{p.resposta}</p>
+                {p.html ? <p set:html={p.html} /> : <p>{p.resposta}</p>}
               </details>
             ))
           }
@@ -152,6 +191,11 @@ const faqJsonLd = {
     padding-bottom: 1.5rem;
     max-width: 40rem;
     color: var(--cinza-texto);
+  }
+
+  .faq details p :global(a) {
+    color: var(--petroleo);
+    font-weight: 600;
   }
 
   .faq__cta {

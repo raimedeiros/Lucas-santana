@@ -1,9 +1,11 @@
 ---
 import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
 import Foto from '../components/Foto.astro';
+import InfoPratica from '../components/InfoPratica.astro';
 import Base from '../layouts/Base.astro';
 import retratoPrincipal from '../assets/fotos/retrato-principal.jpg';
-import { avaliacoes, link, site } from '../site.config';
+import { avaliacoes } from '../data/avaliacoes';
+import { link, site } from '../site.config';
 
 const areas = [
   {
@@ -16,11 +18,12 @@ const areas = [
       'Artrite psoriásica',
       'Vasculites',
       'Miopatias inflamatórias',
+      'Acompanhamento de quem já tem diagnóstico, incluindo imunobiológicos',
     ],
   },
   {
     titulo: 'Dor e condições musculoesqueléticas',
-    itens: ['Fibromialgia', 'Osteoartrite', 'Gota e outras artrites por cristais', 'Osteoporose', 'Outras condições reumatológicas'],
+    itens: ['Fibromialgia', 'Artrose (osteoartrite)', 'Gota e outras artrites por cristais', 'Osteoporose', 'Outras condições reumatológicas'],
   },
   {
     titulo: 'Investigação diagnóstica',
@@ -54,6 +57,7 @@ const areas = [
           <span>Médico | {site.crm} · Reumatologia — {site.rqeReumatologia}</span>
         </p>
       </div>
+      <!-- TODO: trocar pelo retrato em alta resolução quando as fotos novas chegarem (Google Drive). -->
       <Foto
         formato="retrato"
         src={retratoPrincipal}
@@ -64,6 +68,14 @@ const areas = [
         eager
         class="hero__foto"
       />
+    </div>
+  </section>
+
+  <!-- Informações práticas -->
+  <section class="info-pratica" aria-labelledby="info-pratica">
+    <div class="container">
+      <h2 id="info-pratica" class="rotulo">Informações práticas</h2>
+      <InfoPratica />
     </div>
   </section>
 
@@ -166,28 +178,53 @@ const areas = [
     </div>
   </section>
 
-  <!-- Avaliações (oculta até as avaliações serem escolhidas) -->
+  <!-- Avaliações do Google -->
   {
     avaliacoes.length > 0 && (
-      <section class="secao" aria-labelledby="avaliacoes">
+      <section class="secao fundo-areia" aria-labelledby="avaliacoes">
         <div class="container">
-          <span class="rotulo">Avaliações no Google</span>
-          <h2 id="avaliacoes" class="titulo-3">O que pacientes escreveram</h2>
-          <ul class="avaliacoes">
+          <div class="avaliacoes__cabeca revelar">
+            <div>
+              <span class="rotulo">Avaliações</span>
+              <h2 id="avaliacoes" class="titulo-2">O que dizem os pacientes</h2>
+            </div>
+            <div class="avaliacoes__resumo">
+              <p>
+                <strong>{site.avaliacoesGoogle.nota.toFixed(1).replace('.', ',')}</strong>{' '}
+                <span class="estrelas" aria-hidden="true">★</span>
+                <span class="sr-only">de 5 estrelas</span> · {site.avaliacoesGoogle.total} avaliações no Google
+              </p>
+              <a
+                class="botao botao--contorno"
+                href={site.googlePerfil}
+                target="_blank"
+                rel="noopener"
+                data-evento="avaliacoes-google"
+                data-origem="home-avaliacoes"
+              >
+                Ver avaliações no Google
+              </a>
+            </div>
+          </div>
+          <ul class="avaliacoes" data-avaliacoes>
             {avaliacoes.map((a) => (
-              <li>
-                <blockquote>
-                  <p>“{a.texto}”</p>
-                  <footer>— {a.autor}</footer>
-                </blockquote>
+              <li class="revelar">
+                <figure>
+                  <p class="estrelas" role="img" aria-label="5 de 5 estrelas">★★★★★</p>
+                  <blockquote>
+                    <p>“{a.texto}”</p>
+                  </blockquote>
+                  <figcaption>
+                    <strong>{a.autor}</strong>
+                    <span>Avaliação no Google</span>
+                  </figcaption>
+                </figure>
               </li>
             ))}
           </ul>
-          {site.googlePerfil && (
-            <a class="link-seta" href={site.googlePerfil} target="_blank" rel="noopener">
-              Ver todas as avaliações no Google
-            </a>
-          )}
+          <button type="button" class="botao botao--contorno avaliacoes__mais" data-avaliacoes-mais hidden>
+            Ver mais
+          </button>
         </div>
       </section>
     )
@@ -341,31 +378,110 @@ const areas = [
     margin-top: 0.5rem;
   }
 
+  /* Informações práticas */
+  .info-pratica {
+    padding-bottom: clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .info-pratica h2 {
+    margin-bottom: 1rem;
+  }
+
   /* Avaliações */
+  .avaliacoes__cabeca {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem 3rem;
+  }
+
+  .avaliacoes__resumo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    font-size: 1.0625rem;
+  }
+
+  .avaliacoes__resumo strong {
+    font-size: 1.375rem;
+    font-weight: 600;
+  }
+
+  .estrelas {
+    color: var(--petroleo);
+    letter-spacing: 0.08em;
+  }
+
   .avaliacoes {
     list-style: none;
     padding: 0;
     display: grid;
-    gap: 2rem;
-    margin-block: 2rem;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
   }
 
-  @media (min-width: 52rem) {
+  @media (min-width: 40rem) {
+    .avaliacoes {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
     .avaliacoes {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  .avaliacoes blockquote {
+  .avaliacoes figure {
+    height: 100%;
     margin: 0;
-    padding-left: 1.25rem;
-    border-left: 2px solid var(--petroleo);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--off-white);
+    border-radius: var(--raio);
   }
 
-  .avaliacoes footer {
-    margin-top: 0.75rem;
-    font-size: 0.875rem;
+  .avaliacoes blockquote {
+    margin: 0;
+    flex: 1;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--grafite);
+  }
+
+  .avaliacoes figcaption {
+    display: grid;
+    gap: 0.125rem;
+    font-size: 1rem;
+  }
+
+  .avaliacoes figcaption span {
     color: var(--cinza-texto);
+  }
+
+  .avaliacoes__mais {
+    margin-top: 1.5rem;
+  }
+
+  .avaliacoes__mais[hidden] {
+    display: none;
+  }
+
+  /* Celular: só 3 cards visíveis até a pessoa pedir mais (ver script). */
+  @media (max-width: 39.99rem) {
+    .avaliacoes.recolhida > li:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .avaliacoes__mais {
+      display: none;
+    }
   }
 
   /* Consulta particular */
@@ -402,3 +518,19 @@ const areas = [
     border-color: var(--petroleo-claro);
   }
 </style>
+
+<script>
+  // Avaliações: no celular mostra 3 cards e um botão "Ver mais". Sem JS, todos ficam visíveis.
+  const lista = document.querySelector('[data-avaliacoes]');
+  const mais = document.querySelector<HTMLButtonElement>('[data-avaliacoes-mais]');
+  if (lista && mais && lista.children.length > 3) {
+    lista.classList.add('recolhida');
+    mais.hidden = false;
+    mais.addEventListener('click', () => {
+      lista.classList.remove('recolhida');
+      mais.remove();
+      (lista.children[3] as HTMLElement | undefined)?.setAttribute('tabindex', '-1');
+      (lista.children[3] as HTMLElement | undefined)?.focus();
+    });
+  }
+</script>

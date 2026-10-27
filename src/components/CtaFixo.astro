@@ -115,9 +115,11 @@ import Icone from './Icone.astro';
 
 <script>
   // Esconde o botão flutuante e a barra mobile enquanto houver, na tela, outro botão de agendar
-  // ou o rodapé — assim eles nunca ficam por cima de links e botões.
+  // ou o rodapé — assim eles nunca ficam por cima de links e botões. Os botões de convênio
+  // (central e portal do hospital) contam também: ali o agendamento não é pelo WhatsApp.
   const alvos = [
     ...document.querySelectorAll('[data-evento="whatsapp"]:not(.cta-flutuante):not(.barra-mobile *):not(.cabecalho *)'),
+    ...document.querySelectorAll('[data-evento="telefone-convenio"], [data-evento="portal-convenio"]'),
     ...document.querySelectorAll('footer.rodape'),
   ];
   if ('IntersectionObserver' in window && alvos.length) {
