@@ -42,23 +42,25 @@ Os textos vieram da Tabela de Textos do Notion (importação única, outubro/202
 
 ## Fotos
 
-Hoje o site mostra placeholders no formato final. Para trocar, coloque a foto em `src/assets/fotos/`, importe na página e passe para o componente `Foto`:
+Em `src/assets/fotos/`:
+
+| Arquivo | Onde aparece |
+| --- | --- |
+| `retrato-principal.jpg` | Home (topo) |
+| `retrato-sobre.jpg` | Sobre (topo) |
+
+Versões provisórias (853×1280 px, comprimidas). Para trocar por versões melhores, basta substituir o arquivo mantendo o nome; o Astro gera WebP em vários tamanhos no build. O enquadramento é ajustado pela prop `posicao` do componente `Foto` (ex.: `posicao="center 22%"`).
+
+Para uma foto nova numa página:
 
 ```astro
 ---
-import retrato from '../assets/fotos/retrato.jpg';
+import foto from '../assets/fotos/nome.jpg';
 ---
-<Foto src={retrato} formato="retrato" alt="..." legenda="..." />
+<Foto src={foto} formato="retrato" alt="..." legenda="..." />
 ```
 
-O Astro gera as versões otimizadas (WebP, vários tamanhos) no build.
-
-Fotos necessárias para a sessão:
-
-1. Retrato principal, olhando para a câmera ou levemente fora dela, expressão tranquila (vertical 4:5) — Home
-2. Retrato mais próximo (vertical 4:5) — Sobre
-3. Lucas no consultório / sentado à mesa em situação natural (horizontal 3:2) — Home
-4. Extras: detalhes do ambiente, simulação de conversa sem paciente identificável
+Ainda faltam (para a próxima sessão): Lucas no consultório / sentado à mesa em situação natural (horizontal 3:2), detalhes do ambiente, simulação de conversa sem paciente identificável. A seção "Antes da especialidade, existe uma história" da Home pode receber a foto do consultório.
 
 ## Medição de acessos
 

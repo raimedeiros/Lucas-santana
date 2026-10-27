@@ -1,6 +1,7 @@
 ---
 import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
 import Foto from '../components/Foto.astro';
+import retratoSobre from '../assets/fotos/retrato-sobre.jpg';
 import Base from '../layouts/Base.astro';
 import { site } from '../site.config';
 
@@ -26,7 +27,14 @@ const formacao = [
           Reumatologista · {site.crm} · Reumatologia — {site.rqeReumatologia} · Clínica Médica — {site.rqeClinicaMedica}
         </p>
       </div>
-      <Foto formato="retrato" alt="Retrato próximo de Lucas Santana" legenda="retrato próximo para a página Sobre" eager />
+      <Foto
+        formato="retrato"
+        src={retratoSobre}
+        posicao="center 45%"
+        alt="Lucas Santana, reumatologista, sentado, de blazer cinza, sorrindo"
+        legenda="retrato para a página Sobre"
+        eager
+      />
     </div>
   </section>
 
@@ -143,7 +151,7 @@ const formacao = [
   .sobre-topo__grade {
     display: grid;
     gap: 3rem;
-    align-items: end;
+    align-items: center;
   }
 
   @media (min-width: 60rem) {

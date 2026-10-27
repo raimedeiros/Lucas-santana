@@ -2,6 +2,7 @@
 import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
 import Foto from '../components/Foto.astro';
 import Base from '../layouts/Base.astro';
+import retratoPrincipal from '../assets/fotos/retrato-principal.jpg';
 import { avaliacoes, link, site } from '../site.config';
 
 const areas = [
@@ -55,7 +56,9 @@ const areas = [
       </div>
       <Foto
         formato="retrato"
-        alt="Retrato de Lucas Santana, reumatologista, em seu consultório na Asa Norte"
+        src={retratoPrincipal}
+        posicao="center 22%"
+        alt="Lucas Santana, reumatologista, sorrindo, de óculos e camisa azul-clara"
         legenda="retrato do Lucas"
         eager
         class="hero__foto"
@@ -117,18 +120,14 @@ const areas = [
 
   <!-- História -->
   <section class="secao" aria-labelledby="historia">
-    <div class="container historia">
-      <Foto
-        formato="paisagem"
-        alt="Lucas Santana sentado à mesa do consultório, em conversa"
-        legenda="Lucas no consultório"
-        class="historia__foto revelar"
-      />
+    <div class="container duas-colunas">
       <div class="revelar">
         <span class="rotulo">Minha história</span>
         <h2 id="historia" class="titulo-2">Antes da especialidade, existe uma história.</h2>
+      </div>
+      <div class="revelar">
         <div class="texto historia__texto">
-          <p>Meu interesse pela Reumatologia começou antes mesmo da Medicina.</p>
+          <p class="lead">Meu interesse pela Reumatologia começou antes mesmo da Medicina.</p>
           <p>
             Cresci acompanhando de perto minha mãe e minha tia convivendo com artrite reumatoide. Anos depois, durante a
             formação médica, compreender essas doenças e perceber o quanto seu curso pode ser modificado pelo diagnóstico
@@ -324,21 +323,8 @@ const areas = [
   }
 
   /* História */
-  .historia {
-    display: grid;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  @media (min-width: 60rem) {
-    .historia {
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-    }
-  }
-
   .historia__texto {
-    margin-block: 1.75rem 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   /* A consulta */

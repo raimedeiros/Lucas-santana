@@ -244,8 +244,17 @@ const atual = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/,
       display: none;
     }
 
+    .cabecalho__barra {
+      gap: 1rem;
+    }
+
+    .cabecalho__logo {
+      flex: 0 1 220px;
+      min-width: 0;
+    }
+
     .cabecalho__logo img {
-      width: 220px;
+      width: 100%;
     }
   }
 </style>
