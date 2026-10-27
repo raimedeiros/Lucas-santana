@@ -52,7 +52,8 @@ import Icone from './Icone.astro';
   /* Some quando já há um botão de agendar na tela ou o rodapé está visível,
      para nunca cobrir links e botões (ver script abaixo). */
   :global(.cta-fixo-oculto) .cta-flutuante,
-  :global(.consentimento-aberto) .cta-flutuante {
+  :global(.consentimento-aberto) .cta-flutuante,
+  :global(html:has([data-cta-fixo-a-partir-daqui]):not(.cta-fixo-liberado)) .cta-flutuante {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -71,7 +72,8 @@ import Icone from './Icone.astro';
   }
 
   :global(.cta-fixo-oculto) .barra-mobile,
-  :global(.consentimento-aberto) .barra-mobile {
+  :global(.consentimento-aberto) .barra-mobile,
+  :global(html:has([data-cta-fixo-a-partir-daqui]):not(.cta-fixo-liberado)) .barra-mobile {
     transform: translateY(100%);
     visibility: hidden;
   }
@@ -125,5 +127,26 @@ import Icone from './Icone.astro';
       document.documentElement.classList.toggle('cta-fixo-oculto', visiveis.size > 0);
     });
     alvos.forEach((el) => obs.observe(el));
+  }
+
+  // Páginas com um marco (ex.: seção Abordagem da Home): os botões fixos só aparecem quando a
+  // pessoa chega nele. Antes disso ficam escondidos já no primeiro desenho da tela (CSS :has).
+  const marco = document.querySelector('[data-cta-fixo-a-partir-daqui]');
+  if (marco) {
+    let agendado = false;
+    const conferir = () => {
+      agendado = false;
+      const alcancado = marco.getBoundingClientRect().top < window.innerHeight;
+      document.documentElement.classList.toggle('cta-fixo-liberado', alcancado);
+    };
+    const agendar = () => {
+      if (!agendado) {
+        agendado = true;
+        requestAnimationFrame(conferir);
+      }
+    };
+    conferir();
+    window.addEventListener('scroll', agendar, { passive: true });
+    window.addEventListener('resize', agendar, { passive: true });
   }
 </script>
