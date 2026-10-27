@@ -126,7 +126,7 @@ if (trilha) {
     <Consentimento />
 
     <script>
-      // Revela seções suavemente ao rolar; marca o topo e a rolagem para o cabeçalho e o botão flutuante.
+      // Revela seções suavemente ao rolar; marca a rolagem para o cabeçalho.
       const revelar = document.querySelectorAll('.revelar');
       if ('IntersectionObserver' in window) {
         const obs = new IntersectionObserver(
@@ -142,12 +142,6 @@ if (trilha) {
         );
         revelar.forEach((el) => obs.observe(el));
 
-        const ctaTopo = document.querySelector('[data-cta-topo]');
-        if (ctaTopo) {
-          new IntersectionObserver(([e]) => {
-            document.documentElement.classList.toggle('topo-visivel', e.isIntersecting);
-          }).observe(ctaTopo);
-        }
       } else {
         revelar.forEach((el) => el.classList.add('visivel'));
       }

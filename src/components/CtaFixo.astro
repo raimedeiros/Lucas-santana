@@ -49,9 +49,11 @@ import Icone from './Icone.astro';
     height: 1.375rem;
   }
 
-  /* Some enquanto o botão do topo ainda está na tela */
-  :global(.topo-visivel) .cta-flutuante {
+  /* Some quando já há um botão de agendar na tela ou o rodapé está visível,
+     para nunca cobrir links e botões (ver script abaixo). */
+  :global(.cta-fixo-oculto) .cta-flutuante {
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
   }
 
@@ -64,6 +66,12 @@ import Icone from './Icone.astro';
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid var(--linha);
+    transition: transform 0.25s ease, visibility 0.25s;
+  }
+
+  :global(.cta-fixo-oculto) .barra-mobile {
+    transform: translateY(100%);
+    visibility: hidden;
   }
 
   .barra-mobile .botao {
@@ -86,6 +94,13 @@ import Icone from './Icone.astro';
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .cta-flutuante,
+    .barra-mobile {
+      transition: none;
+    }
+  }
+
   @media print {
     .barra-mobile,
     .cta-flutuante {
@@ -93,3 +108,20 @@ import Icone from './Icone.astro';
     }
   }
 </style>
+
+<script>
+  // Esconde o botão flutuante e a barra mobile enquanto houver, na tela, outro botão de agendar
+  // ou o rodapé — assim eles nunca ficam por cima de links e botões.
+  const alvos = [
+    ...document.querySelectorAll('[data-evento="whatsapp"]:not(.cta-flutuante):not(.barra-mobile *):not(.cabecalho *)'),
+    ...document.querySelectorAll('footer.rodape'),
+  ];
+  if ('IntersectionObserver' in window && alvos.length) {
+    const visiveis = new Set<Element>();
+    const obs = new IntersectionObserver((entradas) => {
+      for (const e of entradas) e.isIntersecting ? visiveis.add(e.target) : visiveis.delete(e.target);
+      document.documentElement.classList.toggle('cta-fixo-oculto', visiveis.size > 0);
+    });
+    alvos.forEach((el) => obs.observe(el));
+  }
+</script>
