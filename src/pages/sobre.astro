@@ -1,0 +1,232 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Foto from '../components/Foto.astro';
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+
+const formacao = [
+  { curso: 'Medicina', local: 'Centro Universitário UNICEPLAC' },
+  { curso: 'Residência Médica em Clínica Médica', local: 'Hospital das Forças Armadas (HFA)' },
+  { curso: 'Residência Médica em Reumatologia', local: 'Hospital de Base do Distrito Federal (HBDF)' },
+];
+---
+
+<Base
+  title="Lucas Santana | Médico Reumatologista em Brasília"
+  description="Conheça Lucas Santana, reumatologista em Brasília: a história que o levou à especialidade, sua forma de cuidar, formação no HFA e no Hospital de Base."
+  caminho="/sobre/"
+  trilha="Sobre"
+>
+  <section class="secao sobre-topo">
+    <div class="container sobre-topo__grade">
+      <div>
+        <span class="rotulo">Sobre · {site.nome}</span>
+        <h1 class="titulo-1">Meu interesse pela Reumatologia começou antes mesmo da Medicina.</h1>
+        <p class="sobre-topo__registro texto-secundario">
+          Reumatologista · {site.crm} · Reumatologia — {site.rqeReumatologia} · Clínica Médica — {site.rqeClinicaMedica}
+        </p>
+      </div>
+      <Foto formato="retrato" alt="Retrato próximo de Lucas Santana" legenda="retrato próximo para a página Sobre" eager />
+    </div>
+  </section>
+
+  <section class="secao" aria-label="Minha história">
+    <div class="container">
+      <div class="texto historia revelar">
+        <p class="lead">Desde criança, acompanhei de perto a convivência da minha mãe e da minha tia com a artrite reumatoide.</p>
+        <p>Vi os sintomas, as limitações impostas pela doença e, ao longo dos anos, as mudanças que ela trouxe para suas rotinas.</p>
+        <p>Na faculdade, aquela experiência pessoal começou a ganhar significado médico.</p>
+        <p>
+          Compreender os mecanismos das doenças reumáticas e perceber o quanto o diagnóstico e o tratamento adequados
+          podem modificar sua evolução foram determinantes para minha escolha pela Reumatologia.
+        </p>
+        <p>
+          Mas aquela experiência também me ensinou algo que nenhum exame consegue demonstrar sozinho: uma doença crônica
+          interfere na rotina, na autonomia, nos planos e na maneira como uma pessoa vive.
+        </p>
+        <p>Essa percepção continua presente na minha forma de exercer a Medicina.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao fundo-petroleo-tom" aria-labelledby="cuidar">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Método</span>
+        <h2 id="cuidar" class="titulo-2">Minha forma de cuidar</h2>
+      </div>
+      <div class="texto revelar">
+        <p class="lead">Uma boa avaliação começa pela escuta.</p>
+        <p>Na Reumatologia, nem sempre existe um exame capaz de responder sozinho o que está acontecendo.</p>
+        <p>
+          Sintomas semelhantes podem aparecer em doenças diferentes. Exames alterados podem ter significados distintos
+          dependendo do contexto. E algumas doenças exigem acompanhar sua evolução ao longo do tempo para que o quadro se
+          torne mais claro.
+        </p>
+        <p>Por isso, procuro entender primeiro a história.</p>
+        <p>
+          A partir dela, integro exame físico, antecedentes e exames complementares para construir o raciocínio
+          diagnóstico e definir quais investigações realmente são necessárias.
+        </p>
+        <p>
+          Também considero importante que o paciente compreenda esse processo. Procuro explicar o que estamos
+          investigando, por que determinado exame pode ser necessário, quais possibilidades estão sendo consideradas e,
+          quando existe um diagnóstico, quais são os objetivos e alternativas de tratamento.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frase de marca: tipografia grande e bastante espaço negativo -->
+  <section class="frase" aria-label="Frase">
+    <div class="container">
+      <blockquote class="frase__texto revelar">
+        <p>Doenças acontecem em pessoas, e não apenas em exames.</p>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="formacao">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Trajetória</span>
+        <h2 id="formacao" class="titulo-2">Formação</h2>
+      </div>
+      <ol class="formacao revelar">
+        {
+          formacao.map((f) => (
+            <li>
+              <strong>{f.curso}</strong>
+              <span>{f.local}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="pesquisa">
+    <div class="container">
+      <hr class="fio" />
+      <div class="duas-colunas pesquisa">
+        <div class="revelar">
+          <span class="rotulo">Atualização</span>
+          <h2 id="pesquisa" class="titulo-2">Assistência e pesquisa</h2>
+        </div>
+        <div class="texto revelar">
+          <p>
+            Além da assistência médica, participo de atividades de pesquisa clínica relacionadas a doenças e tratamentos
+            em Reumatologia.
+          </p>
+          <p>
+            O contato com a pesquisa complementa minha prática assistencial e reforça a importância de acompanhar
+            criticamente a evolução do conhecimento científico.
+          </p>
+          <p class="lead">
+            Mais do que conhecer novas possibilidades terapêuticas, estar atualizado significa saber quando uma evidência
+            realmente se aplica à pessoa que está diante de nós.
+          </p>
+          <div class="acoes pesquisa__cta">
+            <BotaoWhatsApp origem="sobre" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sobre-topo {
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+  }
+
+  .sobre-topo__grade {
+    display: grid;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  @media (min-width: 60rem) {
+    .sobre-topo__grade {
+      grid-template-columns: 7fr 4fr;
+      gap: 5rem;
+    }
+  }
+
+  .sobre-topo__registro {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 59.99rem) {
+    .sobre-topo :global(.foto) {
+      max-width: 22rem;
+    }
+  }
+
+  .historia {
+    margin-inline: auto;
+  }
+
+  .frase {
+    padding-block: clamp(6rem, 16vw, 12rem);
+  }
+
+  .frase__texto {
+    margin: 0 auto;
+    max-width: 58rem;
+    text-align: center;
+  }
+
+  .frase__texto p {
+    font-size: clamp(2.25rem, 5.6vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .frase__texto::before {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    margin: 0 auto 2.5rem;
+    background: var(--petroleo);
+  }
+
+  .formacao {
+    list-style: none;
+    padding: 0;
+    counter-reset: f;
+  }
+
+  .formacao li {
+    display: grid;
+    gap: 0.25rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .formacao li:first-child {
+    border-top: 1px solid var(--linha);
+  }
+
+  .formacao strong {
+    font-weight: 600;
+    font-size: 1.1875rem;
+  }
+
+  .formacao span {
+    color: var(--cinza-texto);
+  }
+
+  .pesquisa {
+    padding-top: var(--secao);
+  }
+
+  .pesquisa__cta {
+    margin-top: 2rem;
+  }
+</style>

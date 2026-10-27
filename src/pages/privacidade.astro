@@ -1,0 +1,99 @@
+---
+// RASCUNHO — revisar com o Lucas (e, se possível, com assessoria jurídica) antes da publicação definitiva.
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+---
+
+<Base
+  title="Política de Privacidade | Lucas Santana"
+  description="Como o site de Lucas Santana, reumatologista em Brasília, trata dados pessoais, cookies e medição de acessos, conforme a LGPD."
+  caminho="/privacidade/"
+  trilha="Política de Privacidade"
+  semFechamento
+>
+  <section class="secao">
+    <div class="container">
+      <span class="rotulo">Atualizada em outubro de 2026</span>
+      <h1 class="titulo-1">Política de Privacidade</h1>
+
+      <div class="texto politica">
+        <p class="lead">
+          Este site apresenta o trabalho do médico {site.nome} ({site.crm}) e facilita o agendamento de consultas. Ele não
+          possui formulários e não coleta dados de saúde.
+        </p>
+
+        <h2 class="titulo-3">1. Quem é o responsável</h2>
+        <p>
+          O responsável pelo tratamento dos dados é {site.nome}, médico reumatologista, com consultório na
+          {' '}{site.clinica.nome}, {site.clinica.logradouro}, {site.clinica.bairro}, {site.clinica.cidade}/{site.clinica.uf}.
+          Contato para assuntos de privacidade: <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+
+        <h2 class="titulo-3">2. Quais dados são tratados</h2>
+        <ul>
+          <li>
+            <strong>Medição de acessos sem cookies (Umami):</strong> páginas visitadas, origem do acesso, tipo de dispositivo,
+            navegador e país/região, de forma agregada. Não identifica você nem usa cookies.
+          </li>
+          <li>
+            <strong>Google Analytics (somente com o seu consentimento):</strong> se você aceitar na barra de cookies, o
+            Google Analytics registra dados de navegação semelhantes, usando cookies. Se recusar, ele não é carregado.
+          </li>
+          <li>
+            <strong>Cliques nos botões de contato:</strong> contamos quantas vezes os botões de WhatsApp, Instagram, e-mail e
+            “Como chegar” são clicados, sem identificar quem clicou.
+          </li>
+        </ul>
+
+        <h2 class="titulo-3">3. WhatsApp, e-mail e serviços de terceiros</h2>
+        <p>
+          Ao clicar em “Agendar consulta”, você é levado ao WhatsApp. A conversa acontece diretamente com a secretária
+          {' '}{site.whatsapp.secretaria}, fora deste site, e segue as políticas do WhatsApp. Recomendamos não enviar
+          informações clínicas detalhadas por mensagem: elas serão tratadas na consulta.
+        </p>
+        <p>
+          O mapa da página Onde Atendo só é carregado quando você clica em “Ver mapa”, e então segue as políticas do
+          Google. Links para o Instagram e o Google abrem esses serviços, que têm suas próprias políticas.
+        </p>
+
+        <h2 class="titulo-3">4. Finalidade e base legal</h2>
+        <p>
+          Os dados de navegação são usados apenas para entender como o site é encontrado e utilizado e para melhorar sua
+          comunicação, com base no legítimo interesse (Umami) e no consentimento (Google Analytics), conforme a Lei nº
+          13.709/2018 (LGPD). Não vendemos nem compartilhamos dados para publicidade.
+        </p>
+
+        <h2 class="titulo-3">5. Cookies e como mudar sua escolha</h2>
+        <p>
+          A única ferramenta que usa cookies é o Google Analytics, e apenas após o seu aceite. Você pode mudar sua escolha
+          a qualquer momento em “Preferências de cookies”, no rodapé, ou apagar os cookies nas configurações do navegador.
+        </p>
+
+        <h2 class="titulo-3">6. Seus direitos</h2>
+        <p>
+          Você pode solicitar confirmação, acesso, correção ou exclusão de dados, além de informações sobre
+          compartilhamento, pelo e-mail <a href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+
+        <h2 class="titulo-3">7. Alterações</h2>
+        <p>Esta política pode ser atualizada. A data no topo indica a versão vigente.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .politica {
+    margin-top: 2.5rem;
+  }
+
+  .politica h2 {
+    margin-top: 2.5rem;
+  }
+
+  .politica ul {
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+</style>

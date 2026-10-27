@@ -1,0 +1,19 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Base from '../layouts/Base.astro';
+import { link } from '../site.config';
+---
+
+<Base title="Página não encontrada | Lucas Santana" description="A página que você procurou não existe." caminho="/404/" semFechamento>
+  <section class="secao">
+    <div class="container texto">
+      <span class="rotulo">Erro 404</span>
+      <h1 class="titulo-1">Esta página não foi encontrada.</h1>
+      <p class="lead">O endereço pode ter mudado. Você pode voltar ao início ou agendar sua consulta diretamente.</p>
+      <div class="acoes">
+        <a class="botao botao--contorno" href={link('/')}>Voltar ao início</a>
+        <BotaoWhatsApp origem="404" />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,95 @@
+---
+// Botão flutuante (desktop) e barra fixa inferior (celular), sempre levando ao WhatsApp.
+import { site, whatsappUrl } from '../site.config';
+import Icone from './Icone.astro';
+---
+
+<a class="cta-flutuante" href={whatsappUrl} target="_blank" rel="noopener" data-evento="whatsapp" data-origem="botao-flutuante">
+  <Icone nome="whatsapp" />
+  <span>Agendar consulta</span>
+  <span class="sr-only">(abre o WhatsApp)</span>
+</a>
+
+<div class="barra-mobile">
+  <a class="botao" href={whatsappUrl} target="_blank" rel="noopener" data-evento="whatsapp" data-origem="barra-mobile">
+    <Icone nome="whatsapp" />
+    <span>Agendar consulta</span>
+    <span class="sr-only">pelo WhatsApp com {site.whatsapp.secretaria} (abre o WhatsApp)</span>
+  </a>
+</div>
+
+<style>
+  .cta-flutuante {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 40;
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.35rem 0.9rem 1.1rem;
+    border-radius: 999px;
+    background: var(--petroleo);
+    color: var(--branco);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 10px 30px -12px rgba(27, 70, 80, 0.55);
+    transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.3s ease;
+  }
+
+  .cta-flutuante:hover {
+    background: var(--petroleo-escuro);
+    color: var(--branco);
+    transform: translateY(-2px);
+  }
+
+  .cta-flutuante :global(svg) {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  /* Some enquanto o botão do topo ainda está na tela */
+  :global(.topo-visivel) .cta-flutuante {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .barra-mobile {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 40;
+    padding: 0.625rem var(--gutter) calc(0.625rem + env(safe-area-inset-bottom));
+    background: rgba(247, 247, 245, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--linha);
+  }
+
+  .barra-mobile .botao {
+    width: 100%;
+  }
+
+  @media (max-width: 47.99rem) {
+    :global(:root) {
+      --barra-mobile: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .barra-mobile {
+      display: none;
+    }
+
+    .cta-flutuante {
+      display: inline-flex;
+    }
+  }
+
+  @media print {
+    .barra-mobile,
+    .cta-flutuante {
+      display: none !important;
+    }
+  }
+</style>

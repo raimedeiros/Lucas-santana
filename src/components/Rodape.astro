@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import assinatura from '../assets/marca/assinatura-vertical-crm-negativo.svg';
+import { link, site } from '../site.config';
+import Icone from './Icone.astro';
+
+const ano = new Date().getFullYear();
+---
+
+<footer class="rodape fundo-grafite">
+  <div class="container rodape__grade">
+    <div class="rodape__marca">
+      <Image src={assinatura} alt={`${site.nome} — ${site.especialidade} — ${site.crm} · ${site.rqeReumatologia}`} width={220} />
+      <p class="rodape__registros">
+        Médico | {site.crm}<br />
+        Reumatologia — {site.rqeReumatologia}<br />
+        Clínica Médica — {site.rqeClinicaMedica}
+      </p>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Consulta particular</p>
+      <address>
+        {site.clinica.nome}<br />
+        {site.clinica.logradouro}<br />
+        {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}
+      </address>
+      <p class="rodape__agendamento">
+        Agendamento com {site.whatsapp.secretaria}<br />
+        WhatsApp {site.whatsapp.exibicao}
+      </p>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Navegação</p>
+      <ul class="rodape__links">
+        <li><a href={link('/sobre/')}>Sobre</a></li>
+        <li><a href={link('/reumatologista-brasilia/')}>Reumatologia</a></li>
+        <li><a href={link('/consulta/')}>A Consulta</a></li>
+        <li><a href={link('/onde-atendo/')}>Onde Atendo</a></li>
+        <li><a href={link('/duvidas-frequentes/')}>Dúvidas Frequentes</a></li>
+        <li><a href={link('/contato/')}>Contato</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="rodape__titulo">Contato</p>
+      <ul class="rodape__links rodape__contato">
+        <li>
+          <a href={site.instagram.url} target="_blank" rel="noopener" data-evento="instagram" data-origem="rodape">
+            <Icone nome="instagram" />
+            {site.instagram.usuario}
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`} data-evento="email" data-origem="rodape">
+            <Icone nome="email" />
+            {site.email}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container rodape__base">
+    <p>© {ano} {site.nome}. Todos os direitos reservados.</p>
+    <p>
+      <a href={link('/privacidade/')}>Política de Privacidade</a>
+      <button type="button" class="rodape__cookies" data-abrir-consentimento>Preferências de cookies</button>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .rodape {
+    padding-top: clamp(3.5rem, 8vw, 5.5rem);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .rodape a {
+    color: var(--off-white);
+    text-decoration: none;
+  }
+
+  .rodape a:hover {
+    color: var(--petroleo-claro);
+  }
+
+  .rodape__grade {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 40rem) {
+    .rodape__grade {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .rodape__grade {
+      grid-template-columns: 1.3fr 1.2fr 1fr 1.1fr;
+    }
+  }
+
+  .rodape__marca img {
+    width: 200px;
+    height: auto;
+    margin-left: -12px;
+  }
+
+  .rodape__registros {
+    margin-top: 1.25rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: #c9c9c5;
+  }
+
+  .rodape__titulo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--petroleo-claro);
+    margin-bottom: 1rem;
+  }
+
+  address {
+    font-style: normal;
+    color: #e2e2de;
+  }
+
+  .rodape__agendamento {
+    margin-top: 1rem;
+    color: #e2e2de;
+  }
+
+  .rodape__links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .rodape__contato a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    word-break: break-all;
+  }
+
+  .rodape__contato :global(svg) {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+  }
+
+  .rodape__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    margin-top: 3.5rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.8125rem;
+    color: #b5b5b0;
+  }
+
+  .rodape__base p:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .rodape__base a {
+    color: #b5b5b0;
+    text-decoration: underline;
+  }
+
+  .rodape__cookies {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: #b5b5b0;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .rodape__cookies:hover {
+    color: var(--petroleo-claro);
+  }
+</style>

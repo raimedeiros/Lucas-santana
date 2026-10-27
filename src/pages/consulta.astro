@@ -1,0 +1,317 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Icone from '../components/Icone.astro';
+import Base from '../layouts/Base.astro';
+
+const perguntas = [
+  'Quando os sintomas começaram?',
+  'Como evoluíram?',
+  'O que melhora ou piora?',
+  'Já houve tratamentos?',
+  'Existem outros sintomas associados?',
+  'De que maneira tudo isso interfere na sua rotina?',
+];
+
+const etapas = [
+  {
+    numero: '01',
+    titulo: 'Escutar',
+    texto: 'Compreender os sintomas, sua evolução, antecedentes, tratamentos anteriores e impacto na vida cotidiana.',
+  },
+  { numero: '02', titulo: 'Examinar', texto: 'Realizar o exame físico direcionado às hipóteses levantadas durante a conversa.' },
+  {
+    numero: '03',
+    titulo: 'Investigar com critério',
+    texto: 'Analisar exames já realizados e solicitar novos exames somente quando houver indicação clínica.',
+  },
+  {
+    numero: '04',
+    titulo: 'Construir um plano',
+    texto: 'Discutir hipóteses, diagnóstico quando estabelecido, possibilidades de tratamento e próximos passos.',
+  },
+];
+
+const preparo = [
+  {
+    icone: 'roupa',
+    titulo: 'Vista-se de forma confortável',
+    texto: 'Roupas que permitam avaliar articulações e movimentos facilitam o exame físico.',
+  },
+  {
+    icone: 'unha',
+    titulo: 'Se possível, venha sem esmalte nas unhas das mãos',
+    texto: 'As unhas e a região ao redor delas podem fornecer informações relevantes durante o exame reumatológico.',
+  },
+  {
+    icone: 'exames',
+    titulo: 'Traga seus exames anteriores',
+    texto: 'Exames laboratoriais e de imagem podem ser úteis mesmo quando foram realizados há algum tempo.',
+  },
+  {
+    icone: 'imagem',
+    titulo: 'Se tiver as imagens, traga também',
+    texto: 'Além dos laudos, as próprias imagens de radiografias, tomografias e ressonâncias podem auxiliar na avaliação.',
+  },
+  {
+    icone: 'medicamento',
+    titulo: 'Traga seus medicamentos',
+    texto: 'Uma lista com nomes e doses já ajuda. Se preferir, fotografe ou traga as caixas.',
+  },
+  {
+    icone: 'receita',
+    titulo: 'Receitas e relatórios anteriores também são úteis',
+    texto: 'Especialmente quando houve tratamentos prévios ou acompanhamento com outros profissionais.',
+  },
+  {
+    icone: 'historico',
+    titulo: 'Conte o que já tentou',
+    texto: 'Medicamentos utilizados, por quanto tempo, se houve melhora e se ocorreram efeitos adversos.',
+  },
+  {
+    icone: 'camera',
+    titulo: 'Seu sintoma desapareceu antes da consulta? Fotografe.',
+    texto:
+      'Inchaço, vermelhidão, lesões de pele ou mudanças na coloração dos dedos podem não estar presentes justamente no dia da avaliação.',
+  },
+] as const;
+---
+
+<Base
+  title="Consulta com Reumatologista em Brasília | Lucas Santana"
+  description="Como funciona a consulta de Reumatologia com Lucas Santana em Brasília: escuta, exame físico, investigação com critério e como se preparar."
+  caminho="/consulta/"
+  trilha="A Consulta"
+>
+  <section class="secao topo">
+    <div class="container duas-colunas">
+      <div>
+        <span class="rotulo">A consulta</span>
+        <h1 class="titulo-1">Sua história vem antes dos exames.</h1>
+      </div>
+      <div class="texto">
+        <p class="lead">A consulta começa pela compreensão do que trouxe você até ali.</p>
+        <ul class="perguntas">
+          {perguntas.map((p) => <li>{p}</li>)}
+        </ul>
+        <p>Essas informações orientam o exame físico e ajudam a definir o que precisa — ou não — ser investigado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="etapas">
+    <div class="container">
+      <h2 id="etapas" class="sr-only">Etapas da consulta</h2>
+      <ol class="etapas">
+        {
+          etapas.map((e) => (
+            <li class="revelar">
+              <span class="etapas__numero" aria-hidden="true">
+                {e.numero}
+              </span>
+              <h3 class="titulo-3">{e.titulo}</h3>
+              <p class="texto-secundario">{e.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao fundo-petroleo-tom" aria-labelledby="clareza">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Depois da consulta</span>
+        <h2 id="clareza" class="titulo-2">Clareza faz parte do cuidado.</h2>
+      </div>
+      <div class="texto revelar">
+        <p class="lead">Quero que você saia da consulta entendendo melhor o que estamos investigando.</p>
+        <p>
+          Quando existe um diagnóstico, conversamos sobre a doença, os objetivos do tratamento, as alternativas
+          disponíveis e como será realizado o acompanhamento.
+        </p>
+        <p>Quando ainda não existe uma resposta definitiva, explico quais são as hipóteses e quais serão os próximos passos.</p>
+        <blockquote class="clareza__destaque">
+          <p>Nem toda primeira consulta termina com um diagnóstico.</p>
+          <p>Mas toda boa consulta deve terminar com um caminho mais claro.</p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vai consultar? Prepare-se. -->
+  <section class="secao fundo-areia prepare" id="prepare-se" aria-labelledby="prepare">
+    <div class="container">
+      <div class="prepare__cabeca revelar">
+        <span class="rotulo">Checklist</span>
+        <h2 id="prepare" class="titulo-2">Vai consultar? Prepare-se.</h2>
+        <p class="lead">Pequenos cuidados podem tornar sua avaliação ainda mais completa.</p>
+      </div>
+      <ul class="prepare__lista">
+        {
+          preparo.map((item) => (
+            <li class="revelar">
+              <span class="prepare__icone">
+                <Icone nome={item.icone} />
+              </span>
+              <div>
+                <h3>{item.titulo}</h3>
+                <p>{item.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="exames">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <h2 id="exames" class="titulo-2">E os exames?</h2>
+      </div>
+      <div class="texto revelar">
+        <p class="lead">Não é necessário realizar exames por conta própria antes da primeira consulta.</p>
+        <p>Se forem necessários, eles serão escolhidos de acordo com sua história e avaliação clínica.</p>
+        <div class="acoes cta">
+          <BotaoWhatsApp origem="consulta" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .topo {
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .perguntas {
+    list-style: none;
+    padding: 1.25rem 0 1.25rem 1.5rem;
+    border-left: 2px solid var(--petroleo);
+    display: grid;
+    gap: 0.35rem;
+    font-size: 1.0625rem;
+    color: var(--cinza-texto);
+  }
+
+  .etapas {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 40rem) {
+    .etapas {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .etapas {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .etapas li {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--grafite);
+  }
+
+  .etapas__numero {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--petroleo);
+    margin-bottom: 1.25rem;
+  }
+
+  .etapas h3 {
+    margin-bottom: 0.6rem;
+  }
+
+  .clareza__destaque {
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+
+  .clareza__destaque p {
+    font-size: clamp(1.375rem, 2.6vw, 1.875rem);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+  }
+
+  .clareza__destaque p + p {
+    margin-top: 0.25rem;
+    color: var(--petroleo);
+  }
+
+  .prepare__cabeca {
+    max-width: 40rem;
+  }
+
+  .prepare__cabeca .lead {
+    margin-top: 1.25rem;
+  }
+
+  .prepare__lista {
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem;
+    display: grid;
+    gap: 0;
+    column-gap: 4rem;
+  }
+
+  @media (min-width: 52rem) {
+    .prepare__lista {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .prepare__lista li {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding-block: 1.5rem;
+    border-top: 1px solid rgba(43, 43, 43, 0.14);
+  }
+
+  .prepare__icone {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 10px 10px 10px 22px;
+    background: var(--off-white);
+    color: var(--petroleo);
+  }
+
+  .prepare__icone :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .prepare__lista h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0;
+    margin-bottom: 0.35rem;
+  }
+
+  .prepare__lista p {
+    font-size: 1rem;
+    color: var(--cinza-texto);
+  }
+
+  .cta {
+    margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,413 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Foto from '../components/Foto.astro';
+import Base from '../layouts/Base.astro';
+import { avaliacoes, link, site } from '../site.config';
+
+const areas = [
+  {
+    titulo: 'Doenças autoimunes e inflamatórias',
+    itens: [
+      'Artrite reumatoide',
+      'Lúpus eritematoso sistêmico',
+      'Síndrome de Sjögren',
+      'Espondiloartrites',
+      'Artrite psoriásica',
+      'Vasculites',
+      'Miopatias inflamatórias',
+    ],
+  },
+  {
+    titulo: 'Dor e condições musculoesqueléticas',
+    itens: ['Fibromialgia', 'Osteoartrite', 'Gota e outras artrites por cristais', 'Osteoporose', 'Outras condições reumatológicas'],
+  },
+  {
+    titulo: 'Investigação diagnóstica',
+    texto:
+      'Sintomas persistentes, alterações em exames ou suspeita de doença reumática ou autoimune que ainda precisa ser esclarecida.',
+  },
+];
+---
+
+<Base
+  title="Lucas Santana | Reumatologista em Brasília - DF"
+  description="Reumatologista em Brasília para investigação e acompanhamento de doenças reumáticas e autoimunes. Consulta particular na Asa Norte."
+  caminho="/"
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grade">
+      <div class="hero__texto">
+        <h1 class="rotulo">Reumatologista em Brasília</h1>
+        <p class="titulo-display">Cuidar começa por compreender.</p>
+        <p class="lead hero__sub">
+          Reumatologia com escuta atenta, investigação criteriosa e decisões baseadas em evidências.
+        </p>
+        <p class="hero__local texto-secundario">Atendimento particular em Brasília — Asa Norte.</p>
+        <div class="hero__acoes" data-cta-topo>
+          <BotaoWhatsApp origem="hero" />
+          <span class="apoio-cta">Agendamento pelo WhatsApp com {site.whatsapp.secretaria}</span>
+        </div>
+        <p class="hero__registro">
+          <strong>{site.nome}</strong>
+          <span>Médico | {site.crm} · Reumatologia — {site.rqeReumatologia}</span>
+        </p>
+      </div>
+      <Foto
+        formato="retrato"
+        alt="Retrato de Lucas Santana, reumatologista, em seu consultório na Asa Norte"
+        legenda="retrato do Lucas"
+        eager
+        class="hero__foto"
+      />
+    </div>
+  </section>
+
+  <!-- Abordagem -->
+  <section class="secao" aria-labelledby="abordagem">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Abordagem</span>
+        <h2 id="abordagem" class="titulo-2">Ciência para decidir. Escuta para compreender.</h2>
+      </div>
+      <div class="texto revelar">
+        <p class="lead">
+          Na Reumatologia, sintomas semelhantes podem ter causas muito diferentes — e um exame alterado, sozinho, nem
+          sempre estabelece um diagnóstico.
+        </p>
+        <p>Por isso, uma boa avaliação começa pela história.</p>
+        <p>
+          Compreender quando os sintomas começaram, como evoluíram e de que forma interferem na vida permite interpretar
+          o exame físico e os exames complementares dentro do contexto de cada paciente.
+        </p>
+        <p>
+          É dessa integração que parte meu raciocínio clínico: escutar, examinar, investigar com critério e decidir com
+          base em evidências.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de atuação -->
+  <section class="secao fundo-petroleo-tom" aria-labelledby="areas">
+    <div class="container">
+      <span class="rotulo revelar">Áreas de atuação</span>
+      <h2 id="areas" class="titulo-2 revelar">Em que posso ajudar</h2>
+      <div class="areas">
+        {
+          areas.map((area) => (
+            <div class="area revelar">
+              <h3 class="titulo-3">{area.titulo}</h3>
+              {area.itens ? (
+                <ul class="area__lista">
+                  {area.itens.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="texto-secundario">{area.texto}</p>
+              )}
+            </div>
+          ))
+        }
+      </div>
+      <a class="link-seta revelar" href={link('/reumatologista-brasilia/')}>Entenda quando procurar um reumatologista</a>
+    </div>
+  </section>
+
+  <!-- História -->
+  <section class="secao" aria-labelledby="historia">
+    <div class="container historia">
+      <Foto
+        formato="paisagem"
+        alt="Lucas Santana sentado à mesa do consultório, em conversa"
+        legenda="Lucas no consultório"
+        class="historia__foto revelar"
+      />
+      <div class="revelar">
+        <span class="rotulo">Minha história</span>
+        <h2 id="historia" class="titulo-2">Antes da especialidade, existe uma história.</h2>
+        <div class="texto historia__texto">
+          <p>Meu interesse pela Reumatologia começou antes mesmo da Medicina.</p>
+          <p>
+            Cresci acompanhando de perto minha mãe e minha tia convivendo com artrite reumatoide. Anos depois, durante a
+            formação médica, compreender essas doenças e perceber o quanto seu curso pode ser modificado pelo diagnóstico
+            e pelo tratamento adequados tornou a escolha pela Reumatologia um caminho natural.
+          </p>
+          <p>Essa história também influenciou a forma como exerço a especialidade hoje.</p>
+        </div>
+        <a class="link-seta" href={link('/sobre/')}>Conheça minha trajetória</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- A consulta -->
+  <section class="secao" aria-labelledby="consulta">
+    <div class="container">
+      <hr class="fio" />
+      <div class="duas-colunas consulta">
+        <div class="revelar">
+          <span class="rotulo">A consulta</span>
+          <h2 id="consulta" class="titulo-2">Uma consulta construída a partir da sua história.</h2>
+        </div>
+        <div class="texto revelar">
+          <p class="lead">
+            Não é necessário chegar à primeira consulta sabendo qual é o diagnóstico — nem realizar uma série de exames
+            por conta própria.
+          </p>
+          <p>
+            A avaliação começa entendendo o motivo que trouxe você até ali. História clínica, exame físico e exames
+            complementares são então integrados para definir quais hipóteses fazem sentido e quais próximos passos
+            realmente são necessários.
+          </p>
+          <a class="link-seta" href={link('/consulta/')}>Como funciona a consulta</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Avaliações (oculta até as avaliações serem escolhidas) -->
+  {
+    avaliacoes.length > 0 && (
+      <section class="secao" aria-labelledby="avaliacoes">
+        <div class="container">
+          <span class="rotulo">Avaliações no Google</span>
+          <h2 id="avaliacoes" class="titulo-3">O que pacientes escreveram</h2>
+          <ul class="avaliacoes">
+            {avaliacoes.map((a) => (
+              <li>
+                <blockquote>
+                  <p>“{a.texto}”</p>
+                  <footer>— {a.autor}</footer>
+                </blockquote>
+              </li>
+            ))}
+          </ul>
+          {site.googlePerfil && (
+            <a class="link-seta" href={site.googlePerfil} target="_blank" rel="noopener">
+              Ver todas as avaliações no Google
+            </a>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Consulta particular -->
+  <section class="secao fundo-grafite" aria-labelledby="particular">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Onde atendo</span>
+        <h2 id="particular" class="titulo-2">Consulta particular em Reumatologia</h2>
+      </div>
+      <div class="revelar">
+        <p class="particular__local">
+          <strong>{site.clinica.nome}</strong><br />
+          {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}
+        </p>
+        <p class="texto-secundario">
+          Agendamentos com {site.whatsapp.secretaria}<br />
+          WhatsApp: {site.whatsapp.exibicao}
+        </p>
+        <div class="acoes particular__acoes">
+          <BotaoWhatsApp origem="home-particular" texto="Agendar consulta particular" />
+          <a class="botao botao--contorno" href={link('/onde-atendo/')}>Ver endereço</a>
+        </div>
+        <p class="particular__convenios texto-secundario">
+          Também realizo atendimentos por planos de saúde em serviços específicos do Distrito Federal.
+          <a href={link('/onde-atendo/#convenios')}>Ver locais</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .hero__grade {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .hero__grade {
+      grid-template-columns: 7fr 5fr;
+      gap: 5rem;
+    }
+  }
+
+  .hero__sub {
+    margin-top: 1.75rem;
+    max-width: 32rem;
+  }
+
+  .hero__local {
+    margin-top: 0.75rem;
+  }
+
+  .hero__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.875rem 1.25rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero__registro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+    align-items: baseline;
+    margin-top: 2.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--linha);
+    max-width: 32rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    color: var(--cinza-texto);
+  }
+
+  .hero__registro strong {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--grafite);
+  }
+
+  @media (max-width: 59.99rem) {
+    .hero__foto {
+      max-width: 26rem;
+    }
+  }
+
+  /* Áreas */
+  .areas {
+    display: grid;
+    gap: 2.5rem;
+    margin-block: 3rem 2.5rem;
+  }
+
+  @media (min-width: 52rem) {
+    .areas {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .area {
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--grafite);
+  }
+
+  .area h3 {
+    margin-bottom: 1rem;
+  }
+
+  .area__lista {
+    list-style: none;
+    padding: 0;
+    color: var(--cinza-texto);
+  }
+
+  .area__lista li {
+    padding-block: 0.4rem;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.1);
+  }
+
+  .area__lista li:last-child {
+    border-bottom: 0;
+  }
+
+  /* História */
+  .historia {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 60rem) {
+    .historia {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+
+  .historia__texto {
+    margin-block: 1.75rem 1.5rem;
+  }
+
+  /* A consulta */
+  .consulta {
+    padding-top: var(--secao);
+  }
+
+  .consulta .link-seta {
+    margin-top: 0.5rem;
+  }
+
+  /* Avaliações */
+  .avaliacoes {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+    margin-block: 2rem;
+  }
+
+  @media (min-width: 52rem) {
+    .avaliacoes {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .avaliacoes blockquote {
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--petroleo);
+  }
+
+  .avaliacoes footer {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--cinza-texto);
+  }
+
+  /* Consulta particular */
+  .particular__local {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .particular__acoes {
+    margin-top: 2rem;
+  }
+
+  .particular__convenios {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.9375rem;
+    max-width: 34rem;
+  }
+
+  .particular__convenios a {
+    color: var(--petroleo-claro);
+  }
+
+  .fundo-grafite :global(.botao:not(.botao--contorno)) {
+    background: var(--off-white);
+    border-color: var(--off-white);
+    color: var(--grafite);
+  }
+
+  .fundo-grafite :global(.botao:not(.botao--contorno):hover) {
+    background: var(--petroleo-claro);
+    border-color: var(--petroleo-claro);
+  }
+</style>

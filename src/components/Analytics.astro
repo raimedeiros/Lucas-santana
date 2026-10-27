@@ -1,0 +1,44 @@
+---
+// Umami: sem cookies, carrega sempre.
+// Google Analytics 4: usa cookies, só carrega depois do aceite na barra de consentimento.
+// Cliques em elementos com data-evento (whatsapp, como-chegar, instagram, email) vão para os dois.
+import { site } from '../site.config';
+
+const { umamiId, umamiSrc, googleAnalyticsId } = site.analytics;
+---
+
+{umamiId && <script is:inline defer src={umamiSrc} data-website-id={umamiId} data-domains="lucasreumatologista.com" />}
+
+<script is:inline define:vars={{ gaId: googleAnalyticsId }}>
+  window.__gaId = gaId;
+  window.carregarGA = function () {
+    if (!gaId || window.__gaCarregado) return;
+    window.__gaCarregado = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', gaId, { anonymize_ip: true });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+    document.head.appendChild(s);
+  };
+  try {
+    if (gaId && localStorage.getItem('consentimento-cookies') === 'aceito') window.carregarGA();
+  } catch (e) {}
+
+  document.addEventListener('click', function (e) {
+    var alvo = e.target instanceof Element ? e.target.closest('[data-evento]') : null;
+    if (!alvo) return;
+    var evento = alvo.getAttribute('data-evento');
+    var origem = alvo.getAttribute('data-origem') || '';
+    if (window.umami && typeof window.umami.track === 'function') {
+      window.umami.track(evento, { origem: origem, pagina: location.pathname });
+    }
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'clique_' + evento.replace(/-/g, '_'), { origem: origem });
+    }
+  });
+</script>

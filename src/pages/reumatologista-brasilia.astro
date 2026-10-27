@@ -1,0 +1,155 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Base from '../layouts/Base.astro';
+
+const motivos = [
+  'Dor ou inchaço persistente nas articulações',
+  'Rigidez importante ao acordar',
+  'Episódios recorrentes de inflamação articular',
+  'Dor lombar persistente com características inflamatórias',
+  'Mudança de coloração dos dedos com o frio',
+  'Secura persistente dos olhos ou da boca',
+  'Alterações de pele acompanhadas de sintomas articulares',
+  'Dor generalizada, fadiga e alterações do sono',
+  'Alterações em exames relacionados à autoimunidade',
+  'Suspeita ou diagnóstico de doença reumática ou autoimune',
+];
+
+const exemplos = [
+  { achado: 'FAN positivo', leitura: 'não significa automaticamente lúpus.' },
+  { achado: 'Dor articular', leitura: 'não significa necessariamente artrite.' },
+  { achado: 'Dor generalizada', leitura: 'não significa necessariamente fibromialgia.' },
+];
+---
+
+<Base
+  title="Quando procurar um Reumatologista? | Lucas Santana"
+  description="Dor nas articulações, rigidez ao acordar, FAN positivo ou suspeita de doença autoimune? Veja quando procurar um reumatologista em Brasília."
+  caminho="/reumatologista-brasilia/"
+  trilha="Reumatologia"
+>
+  <section class="secao topo">
+    <div class="container duas-colunas">
+      <div>
+        <span class="rotulo">Reumatologia</span>
+        <h1 class="titulo-1">Quando procurar um reumatologista?</h1>
+      </div>
+      <div class="texto">
+        <p class="lead">
+          A Reumatologia cuida de doenças que podem envolver articulações, músculos e ossos, além de condições
+          autoimunes e inflamatórias capazes de apresentar manifestações em diferentes partes do organismo.
+        </p>
+        <p><strong>Você não precisa saber se tem uma doença reumática antes de procurar o especialista.</strong></p>
+        <p>A avaliação pode ser indicada diante de sintomas persistentes ou alterações que ainda precisam ser compreendidas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="motivos">
+    <div class="container">
+      <h2 id="motivos" class="titulo-3 revelar">Alguns motivos para procurar avaliação:</h2>
+      <ul class="motivos revelar">
+        {motivos.map((m) => <li>{m}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="secao fundo-petroleo-tom" aria-labelledby="exame">
+    <div class="container">
+      <div class="duas-colunas">
+        <div class="revelar">
+          <span class="rotulo">Contexto</span>
+          <h2 id="exame" class="titulo-2">Um exame alterado é uma informação. Não é o diagnóstico inteiro.</h2>
+        </div>
+        <div class="revelar">
+          <p class="lead">Na Reumatologia, interpretar o contexto é fundamental.</p>
+          <ul class="exemplos">
+            {
+              exemplos.map((e) => (
+                <li>
+                  <strong>{e.achado}</strong> {e.leitura}
+                </li>
+              ))
+            }
+          </ul>
+          <div class="texto">
+            <p>
+              O diagnóstico surge da integração entre história clínica, exame físico, evolução dos sintomas e, quando
+              indicados, exames laboratoriais ou de imagem.
+            </p>
+            <p>
+              Por isso, a investigação deve ser direcionada — e não simplesmente baseada em solicitar o maior número
+              possível de exames.
+            </p>
+          </div>
+          <div class="acoes cta">
+            <BotaoWhatsApp origem="reumatologia" texto="Agendar avaliação" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .topo {
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .motivos {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: grid;
+    column-gap: 4rem;
+  }
+
+  @media (min-width: 48rem) {
+    .motivos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .motivos li {
+    position: relative;
+    padding: 1.1rem 0 1.1rem 1.75rem;
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .motivos li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.75rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 2px 2px 2px 6px;
+    background: var(--petroleo);
+  }
+
+  .exemplos {
+    list-style: none;
+    padding: 0;
+    margin-block: 2rem;
+  }
+
+  .exemplos li {
+    padding-block: 1.1rem;
+    border-top: 1px solid rgba(36, 90, 102, 0.25);
+    font-size: clamp(1.125rem, 1.8vw, 1.3125rem);
+    line-height: 1.45;
+  }
+
+  .exemplos li:last-child {
+    border-bottom: 1px solid rgba(36, 90, 102, 0.25);
+  }
+
+  .exemplos strong {
+    font-weight: 600;
+    color: var(--petroleo);
+  }
+
+  .cta {
+    margin-top: 2.5rem;
+  }
+</style>

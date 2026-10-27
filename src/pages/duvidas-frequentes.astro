@@ -1,0 +1,163 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+
+const perguntas = [
+  {
+    pergunta: 'Preciso ter um diagnóstico para marcar consulta?',
+    resposta:
+      'Não. Muitos pacientes procuram o reumatologista justamente porque apresentam sintomas ou alterações em exames que ainda não foram esclarecidos. A consulta serve também para avaliar se existe indicação de investigação reumatológica.',
+  },
+  {
+    pergunta: 'Meu FAN deu positivo. Isso significa que tenho lúpus ou outra doença autoimune?',
+    resposta:
+      'Não necessariamente. O FAN pode ser encontrado em diferentes situações e até em pessoas sem doença autoimune. Seu significado depende do padrão encontrado, do contexto em que foi solicitado e, principalmente, da presença ou ausência de manifestações clínicas compatíveis.',
+  },
+  {
+    pergunta: 'Preciso fazer exames antes da primeira consulta?',
+    resposta:
+      'Não. Evite realizar uma bateria de exames por conta própria. Se você já possui exames anteriores, leve-os. Novos exames serão solicitados quando houver indicação após a avaliação clínica.',
+  },
+  {
+    pergunta: 'Exames antigos ainda servem?',
+    resposta: 'Sim. Eles podem ajudar a entender a evolução de alterações laboratoriais ou de imagem ao longo do tempo.',
+  },
+  {
+    pergunta: 'Preciso de encaminhamento?',
+    resposta:
+      'Para consulta particular, não. Se outro profissional indicou a avaliação reumatológica, entretanto, leve o encaminhamento ou relatório caso esteja disponível.',
+  },
+  {
+    pergunta: 'Atende fibromialgia?',
+    resposta:
+      'Sim. A fibromialgia está entre as condições acompanhadas pela Reumatologia. A avaliação também permite considerar outras causas capazes de produzir sintomas semelhantes.',
+  },
+  {
+    pergunta: 'Atende doenças autoimunes?',
+    resposta:
+      'Sim. Realizo investigação e acompanhamento de doenças autoimunes e inflamatórias, incluindo artrite reumatoide, lúpus, síndrome de Sjögren, espondiloartrites, artrite psoriásica, vasculites e outras condições reumatológicas.',
+  },
+  {
+    pergunta: 'Atende por plano de saúde?',
+    resposta:
+      'Sim, em locais específicos. Os atendimentos por convênio são realizados no Hospital Brasília — Unidades Águas Claras e Ceilândia — e no Espaço Saúde Unimed Brasília. Os planos aceitos, horários e agendamentos são administrados diretamente por essas instituições. O atendimento na Clínica Mirindiba é particular.',
+  },
+  {
+    pergunta: 'Como agendar a consulta particular?',
+    resposta: `O agendamento é realizado pelo WhatsApp com ${site.whatsapp.secretaria}: ${site.whatsapp.exibicao}.`,
+  },
+];
+
+const faqJsonLd = {
+  '@type': 'FAQPage',
+  mainEntity: perguntas.map((p) => ({
+    '@type': 'Question',
+    name: p.pergunta,
+    acceptedAnswer: { '@type': 'Answer', text: p.resposta },
+  })),
+};
+---
+
+<Base
+  title="Dúvidas sobre Consulta em Reumatologia | Lucas Santana"
+  description="Preciso de diagnóstico para marcar? FAN positivo é lúpus? Preciso de exames antes? Respostas às dúvidas comuns sobre a consulta de Reumatologia."
+  caminho="/duvidas-frequentes/"
+  trilha="Dúvidas Frequentes"
+  jsonLd={[faqJsonLd]}
+>
+  <section class="secao">
+    <div class="container duas-colunas">
+      <div class="faq__cabeca">
+        <span class="rotulo">Antes de agendar</span>
+        <h1 class="titulo-1">Dúvidas frequentes</h1>
+      </div>
+      <div>
+        <div class="faq">
+          {
+            perguntas.map((p, i) => (
+              <details open={i === 0}>
+                <summary>
+                  <span>{p.pergunta}</span>
+                </summary>
+                <p>{p.resposta}</p>
+              </details>
+            ))
+          }
+        </div>
+        <div class="faq__cta">
+          <p class="texto-secundario">Ainda tem alguma dúvida sobre o agendamento?</p>
+          <BotaoWhatsApp origem="faq" texto={`Falar com a ${site.whatsapp.secretaria}`} />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  @media (min-width: 60rem) {
+    .faq__cabeca {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+
+  .faq details {
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .faq details:first-child {
+    border-top: 1px solid var(--linha);
+  }
+
+  .faq summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-block: 1.375rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq summary::after {
+    content: '';
+    flex: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-top: 0.4rem;
+    border-right: 1.75px solid var(--petroleo);
+    border-bottom: 1.75px solid var(--petroleo);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .faq details[open] summary::after {
+    transform: rotate(-135deg);
+    margin-top: 0.7rem;
+  }
+
+  .faq summary:hover {
+    color: var(--petroleo);
+  }
+
+  .faq details p {
+    padding-bottom: 1.5rem;
+    max-width: 40rem;
+    color: var(--cinza-texto);
+  }
+
+  .faq__cta {
+    margin-top: 3rem;
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+  }
+</style>

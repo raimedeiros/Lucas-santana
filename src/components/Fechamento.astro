@@ -1,0 +1,34 @@
+---
+import BotaoWhatsApp from './BotaoWhatsApp.astro';
+---
+
+<section class="fechamento fundo-petroleo-tom" aria-labelledby="fechamento-titulo">
+  <div class="container secao duas-colunas">
+    <div class="revelar">
+      <h2 id="fechamento-titulo" class="titulo-2">Talvez você ainda não saiba o nome do que está sentindo.</h2>
+      <p class="destaque fechamento__sub">E tudo bem começar por aí.</p>
+    </div>
+    <div class="texto revelar">
+      <p>A Reumatologia muitas vezes começa com uma pergunta: por que esses sintomas estão acontecendo?</p>
+      <p>
+        O primeiro passo é compreender sua história, avaliar o contexto e definir o que realmente precisa ser
+        investigado.
+      </p>
+      <div class="acoes fechamento__acoes">
+        <BotaoWhatsApp origem="fechamento" />
+        <span class="apoio-cta">Consulta particular — Asa Norte, Brasília</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fechamento__sub {
+    margin-top: 1.25rem;
+    color: var(--petroleo);
+  }
+
+  .fechamento__acoes {
+    margin-top: 2rem;
+  }
+</style>

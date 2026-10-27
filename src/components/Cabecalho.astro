@@ -1,0 +1,268 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/marca/assinatura-horizontal-cor.svg';
+import { link, site } from '../site.config';
+import BotaoWhatsApp from './BotaoWhatsApp.astro';
+import Icone from './Icone.astro';
+
+const itens = [
+  { href: '/', texto: 'Início' },
+  { href: '/sobre/', texto: 'Sobre' },
+  { href: '/reumatologista-brasilia/', texto: 'Reumatologia' },
+  { href: '/consulta/', texto: 'A Consulta' },
+  { href: '/onde-atendo/', texto: 'Onde Atendo' },
+  { href: '/duvidas-frequentes/', texto: 'Dúvidas Frequentes' },
+  { href: '/contato/', texto: 'Contato' },
+];
+
+const atual = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+---
+
+<header class="cabecalho">
+  <div class="container cabecalho__barra">
+    <a class="cabecalho__logo" href={link('/')} aria-label={`${site.nome}, ${site.especialidade} — página inicial`}>
+      <Image src={logo} alt="" width={236} loading="eager" />
+    </a>
+
+    <nav class="cabecalho__nav" id="menu" aria-label="Principal">
+      <ul>
+        {
+          itens.map((item) => (
+            <li>
+              <a href={link(item.href)} aria-current={atual === item.href ? 'page' : undefined}>
+                {item.texto}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="cabecalho__instagram" href={site.instagram.url} target="_blank" rel="noopener" data-evento="instagram" data-origem="cabecalho">
+        <Icone nome="instagram" />
+        <span class="sr-only">Instagram {site.instagram.usuario}</span>
+      </a>
+      <div class="cabecalho__cta-menu">
+        <BotaoWhatsApp origem="menu-mobile" />
+      </div>
+    </nav>
+
+    <div class="cabecalho__cta">
+      <BotaoWhatsApp origem="cabecalho" />
+    </div>
+
+    <button class="cabecalho__toggle" type="button" aria-expanded="false" aria-controls="menu">
+      <Icone nome="menu" class="abrir" />
+      <Icone nome="fechar" class="fechar" />
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .cabecalho {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+
+  /* O desfoque fica num pseudo-elemento: backdrop-filter no próprio cabeçalho
+     prenderia o menu mobile (position: fixed) dentro dele. */
+  .cabecalho::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(247, 247, 245, 0.94);
+    backdrop-filter: saturate(1.2) blur(10px);
+    -webkit-backdrop-filter: saturate(1.2) blur(10px);
+  }
+
+  :global(.rolou) .cabecalho {
+    border-bottom-color: var(--linha);
+  }
+
+  .cabecalho__barra {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 4.5rem;
+  }
+
+  .cabecalho__logo {
+    flex: none;
+    margin-right: auto;
+  }
+
+  .cabecalho__logo img {
+    width: 236px;
+    height: auto;
+  }
+
+  .cabecalho__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cabecalho__nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 0.25rem;
+  }
+
+  .cabecalho__nav a {
+    color: var(--grafite);
+    text-decoration: none;
+  }
+
+  .cabecalho__nav ul a {
+    display: block;
+    padding: 0.5rem 0.55rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: 6px;
+  }
+
+  .cabecalho__nav ul a:hover {
+    color: var(--petroleo);
+  }
+
+  .cabecalho__nav ul a[aria-current='page'] {
+    color: var(--petroleo);
+    text-decoration: underline;
+    text-underline-offset: 0.45em;
+  }
+
+  .cabecalho__instagram {
+    display: inline-flex;
+    flex: none;
+    padding: 0.5rem;
+  }
+
+  .cabecalho__cta {
+    flex: none;
+  }
+
+  .cabecalho__instagram :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .cabecalho__cta :global(.botao) {
+    min-height: 2.75rem;
+    padding: 0.625rem 1.125rem;
+    font-size: 0.8125rem;
+  }
+
+  .cabecalho__cta-menu,
+  .cabecalho__toggle {
+    display: none;
+  }
+
+  /* Menu compacto (tablet e celular) */
+  @media (max-width: 79.99rem) {
+    .cabecalho__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 0;
+      background: none;
+      color: var(--grafite);
+      cursor: pointer;
+      margin-right: -0.5rem;
+    }
+
+    .cabecalho__toggle :global(svg) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .cabecalho__toggle :global(.fechar),
+    .cabecalho__toggle[aria-expanded='true'] :global(.abrir) {
+      display: none;
+    }
+
+    .cabecalho__toggle[aria-expanded='true'] :global(.fechar) {
+      display: block;
+    }
+
+    .cabecalho__nav {
+      position: fixed;
+      inset: 4.5rem 0 0 0;
+      background: var(--off-white);
+      padding: 1.5rem var(--gutter) 2rem;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.5rem;
+      border-top: 1px solid var(--linha);
+    }
+
+    .cabecalho__nav.aberto {
+      display: flex;
+    }
+
+    .cabecalho__nav ul {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cabecalho__nav ul a {
+      font-size: 1.375rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--linha);
+      border-radius: 0;
+    }
+
+    .cabecalho__nav ul a[aria-current='page'] {
+      text-decoration: none;
+    }
+
+    .cabecalho__instagram {
+      align-self: flex-start;
+      gap: 0.5rem;
+      padding-left: 0;
+    }
+
+    .cabecalho__cta-menu {
+      display: block;
+    }
+
+    .cabecalho__cta-menu :global(.botao) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .cabecalho__cta {
+      display: none;
+    }
+
+    .cabecalho__logo img {
+      width: 220px;
+    }
+  }
+</style>
+
+<script>
+  const botao = document.querySelector<HTMLButtonElement>('.cabecalho__toggle');
+  const menu = document.getElementById('menu');
+  botao?.addEventListener('click', () => {
+    const aberto = botao.getAttribute('aria-expanded') === 'true';
+    botao.setAttribute('aria-expanded', String(!aberto));
+    menu?.classList.toggle('aberto', !aberto);
+    document.body.style.overflow = aberto ? '' : 'hidden';
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && botao?.getAttribute('aria-expanded') === 'true') {
+      botao.click();
+      botao.focus();
+    }
+  });
+</script>

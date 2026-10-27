@@ -1,0 +1,25 @@
+---
+import { whatsappUrl } from '../site.config';
+import Icone from './Icone.astro';
+
+interface Props {
+  texto?: string;
+  /** Onde o botão está; vai junto no evento de conversão. */
+  origem: string;
+  variante?: 'cheio' | 'contorno';
+}
+const { texto = 'Agendar consulta', origem, variante = 'cheio' } = Astro.props;
+---
+
+<a
+  class:list={['botao', { 'botao--contorno': variante === 'contorno' }]}
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener"
+  data-evento="whatsapp"
+  data-origem={origem}
+>
+  <Icone nome="whatsapp" />
+  <span>{texto}</span>
+  <span class="sr-only">(abre o WhatsApp)</span>
+</a>

@@ -1,0 +1,105 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Icone from '../components/Icone.astro';
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+---
+
+<Base
+  title="Contato | Lucas Santana · Reumatologista em Brasília"
+  description="Agende sua consulta particular de Reumatologia pelo WhatsApp com Scheila: (61) 99919-0211. Contato profissional por e-mail e Instagram @lucasreumato."
+  caminho="/contato/"
+  trilha="Contato"
+>
+  <section class="secao">
+    <div class="container">
+      <span class="rotulo">Fale com o consultório</span>
+      <h1 class="titulo-1">Contato</h1>
+
+      <div class="canais">
+        <section class="canal canal--principal" aria-labelledby="agendamento">
+          <h2 id="agendamento" class="titulo-3">Agendamento</h2>
+          <p class="canal__dado">
+            {site.whatsapp.secretaria}<br />
+            WhatsApp: {site.whatsapp.exibicao}
+          </p>
+          <BotaoWhatsApp origem="contato" />
+        </section>
+
+        <section class="canal" aria-labelledby="profissional">
+          <h2 id="profissional" class="titulo-3">Contato profissional</h2>
+          <p class="canal__dado">
+            <a href={`mailto:${site.email}`} data-evento="email" data-origem="contato">
+              <Icone nome="email" />
+              {site.email}
+            </a>
+          </p>
+          <p class="texto-secundario canal__aviso">
+            O e-mail destina-se preferencialmente a assuntos profissionais e institucionais. Para agendamento de
+            consultas, utilizar o WhatsApp.
+          </p>
+        </section>
+
+        <section class="canal" aria-labelledby="redes">
+          <h2 id="redes" class="titulo-3">Redes sociais</h2>
+          <p class="canal__dado">Instagram — {site.instagram.usuario}</p>
+          <a class="link-seta" href={site.instagram.url} target="_blank" rel="noopener" data-evento="instagram" data-origem="contato">
+            Acompanhar no Instagram
+          </a>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .canais {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  @media (min-width: 60rem) {
+    .canais {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .canal {
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--grafite);
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: 1rem;
+  }
+
+  .canal--principal {
+    border-top-color: var(--petroleo);
+  }
+
+  .canal__dado {
+    font-size: 1.1875rem;
+    line-height: 1.55;
+  }
+
+  .canal__dado a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--grafite);
+    word-break: break-all;
+  }
+
+  .canal__dado :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--petroleo);
+    flex: none;
+  }
+
+  .canal__aviso {
+    font-size: 0.9375rem;
+  }
+</style>

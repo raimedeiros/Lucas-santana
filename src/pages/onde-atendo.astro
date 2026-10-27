@@ -1,0 +1,139 @@
+---
+import BotaoWhatsApp from '../components/BotaoWhatsApp.astro';
+import Mapa from '../components/Mapa.astro';
+import Base from '../layouts/Base.astro';
+import { comoChegarUrl, site } from '../site.config';
+---
+
+<Base
+  title="Reumatologista na Asa Norte, Brasília | Lucas Santana"
+  description="Consulta particular de Reumatologia na Clínica Mirindiba, SGAN 915, Asa Norte, Brasília. Agendamento pelo WhatsApp. Convênios em locais específicos."
+  caminho="/onde-atendo/"
+  trilha="Onde Atendo"
+>
+  <section class="secao topo">
+    <div class="container local">
+      <div>
+        <span class="rotulo">Onde atendo</span>
+        <h1 class="titulo-1">Consulta particular</h1>
+
+        <div class="local__bloco">
+          <p class="local__titulo">Endereço</p>
+          <address>
+            <strong>{site.clinica.nome}</strong><br />
+            {site.clinica.predio}<br />
+            {site.clinica.logradouro}<br />
+            {site.clinica.bairro} — {site.clinica.cidade}/{site.clinica.uf}<br />
+            CEP {site.clinica.cep}
+          </address>
+        </div>
+
+        <div class="local__bloco">
+          <p class="local__titulo">Agendamento e informações</p>
+          <p>
+            {site.whatsapp.secretaria}<br />
+            WhatsApp: {site.whatsapp.exibicao}
+          </p>
+        </div>
+
+        <div class="acoes local__acoes">
+          <BotaoWhatsApp origem="onde-atendo" texto="Agendar pelo WhatsApp" />
+          <a class="botao botao--contorno" href={comoChegarUrl} target="_blank" rel="noopener" data-evento="como-chegar" data-origem="onde-atendo">
+            Como chegar
+          </a>
+        </div>
+      </div>
+      <Mapa />
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="regiao">
+    <div class="container">
+      <hr class="fio" />
+      <div class="duas-colunas regiao">
+        <h2 id="regiao" class="titulo-2 revelar">Brasília e região</h2>
+        <p class="lead texto revelar">
+          O consultório está localizado na Asa Norte e recebe pacientes de diferentes regiões de Brasília e do Distrito
+          Federal, além de pessoas que se deslocam de cidades próximas do Entorno, como Valparaíso de Goiás, Cidade
+          Ocidental e Luziânia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao fundo-petroleo-tom" id="convenios" aria-labelledby="convenios-titulo">
+    <div class="container duas-colunas">
+      <div class="revelar">
+        <span class="rotulo">Convênios</span>
+        <h2 id="convenios-titulo" class="titulo-2">Atendimento por planos de saúde</h2>
+      </div>
+      <div class="revelar">
+        <ul class="convenios">
+          {site.convenios.map((c) => <li>{c}</li>)}
+        </ul>
+        <p class="texto-secundario texto">
+          Os planos aceitos, horários e agendamentos nesses serviços são administrados diretamente pelas respectivas
+          instituições. Para consultas por convênio, consulte os canais oficiais de cada unidade.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .local {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (min-width: 60rem) {
+    .local {
+      grid-template-columns: 5fr 6fr;
+      gap: 5rem;
+    }
+  }
+
+  .local__bloco {
+    margin-top: 2rem;
+  }
+
+  .local__titulo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cinza-texto);
+    margin-bottom: 0.5rem;
+  }
+
+  address {
+    font-style: normal;
+    font-size: 1.1875rem;
+    line-height: 1.6;
+  }
+
+  .local__acoes {
+    margin-top: 2.5rem;
+  }
+
+  .regiao {
+    padding-top: var(--secao);
+  }
+
+  .convenios {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .convenios li {
+    padding-block: 1rem;
+    border-bottom: 1px solid rgba(36, 90, 102, 0.25);
+    font-size: 1.1875rem;
+  }
+
+  .convenios li:first-child {
+    border-top: 1px solid rgba(36, 90, 102, 0.25);
+  }
+</style>
