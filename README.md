@@ -18,7 +18,7 @@ Abra o endereço que aparecer no terminal (ex.: `http://localhost:4321/Lucas-san
 | O quê | Onde |
 | --- | --- |
 | CRM, RQE, WhatsApp, mensagem do WhatsApp, endereço, convênios, Instagram, e-mail | `src/site.config.ts` |
-| IDs do Umami e do Google Analytics | `src/site.config.ts` → `analytics` |
+| ID do Google Analytics (e do Umami, se um dia for usado) | `src/site.config.ts` → `analytics` |
 | Avaliações do Google (3 a 5) e link do Perfil | `src/site.config.ts` → `avaliacoes` e `googlePerfil` |
 | Textos de cada página | `src/pages/*.astro` (o texto está escrito direto no HTML) |
 | Cabeçalho, rodapé, fechamento, botões fixos | `src/components/` |
@@ -62,9 +62,9 @@ Fotos necessárias para a sessão:
 
 ## Medição de acessos
 
-- **Umami** (sem cookies): crie o site em [cloud.umami.is](https://cloud.umami.is), copie o *Website ID* para `analytics.umamiId`. Só conta acessos em `lucasreumatologista.com`.
-- **Google Analytics 4**: crie uma propriedade, copie o ID `G-XXXXXXXXXX` para `analytics.googleAnalyticsId`. Ele só carrega depois que a pessoa aceita na barra de cookies (LGPD). Com o ID vazio, a barra não aparece.
-- Eventos enviados aos dois: `whatsapp`, `como-chegar`, `instagram`, `email` (no GA: `clique_whatsapp` etc., com o parâmetro `origem` dizendo qual botão foi clicado). No GA, marque `clique_whatsapp` como **evento principal** (conversão).
+- **Google Analytics 4** (ativo, `G-XHMZ32YD9F`): ID em `analytics.googleAnalyticsId`. Ele só carrega depois que a pessoa aceita na barra de cookies (LGPD). Com o ID vazio, a barra não aparece.
+- **Umami** (desativado): o código já suporta; para ligar, preencha `analytics.umamiId` e atualize a Política de Privacidade.
+- Eventos enviados: `whatsapp`, `como-chegar`, `instagram`, `email` (no GA: `clique_whatsapp` etc., com o parâmetro `origem` dizendo qual botão foi clicado). No GA, marque `clique_whatsapp` como **evento principal** (conversão).
 
 ## Publicação (GitHub Pages)
 
