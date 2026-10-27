@@ -280,8 +280,12 @@ const areas = [
   }
 
   @media (max-width: 59.99rem) {
-    .hero__foto {
+    /* Celular e tablet: a foto vem antes do texto, para criar conexão logo de cara.
+       Formato quadrado, para o título e o botão de agendar não descerem demais. */
+    .hero__grade > :global(.hero__foto) {
+      order: -1;
       max-width: 26rem;
+      aspect-ratio: 1;
     }
   }
 
