@@ -51,7 +51,8 @@ import Icone from './Icone.astro';
 
   /* Some quando já há um botão de agendar na tela ou o rodapé está visível,
      para nunca cobrir links e botões (ver script abaixo). */
-  :global(.cta-fixo-oculto) .cta-flutuante {
+  :global(.cta-fixo-oculto) .cta-flutuante,
+  :global(.consentimento-aberto) .cta-flutuante {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -69,7 +70,8 @@ import Icone from './Icone.astro';
     transition: transform 0.25s ease, visibility 0.25s;
   }
 
-  :global(.cta-fixo-oculto) .barra-mobile {
+  :global(.cta-fixo-oculto) .barra-mobile,
+  :global(.consentimento-aberto) .barra-mobile {
     transform: translateY(100%);
     visibility: hidden;
   }
