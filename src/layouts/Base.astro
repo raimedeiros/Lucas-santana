@@ -85,7 +85,6 @@ if (trilha) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -126,25 +125,35 @@ if (trilha) {
     <Consentimento />
 
     <script>
-      // Revela seções suavemente ao rolar; marca a rolagem para o cabeçalho.
-      const revelar = document.querySelectorAll('.revelar');
-      if ('IntersectionObserver' in window) {
-        const obs = new IntersectionObserver(
-          (entradas) => {
-            for (const e of entradas) {
-              if (e.isIntersecting) {
-                e.target.classList.add('visivel');
-                obs.unobserve(e.target);
-              }
-            }
-          },
-          { rootMargin: '0px 0px -8% 0px' },
-        );
-        revelar.forEach((el) => obs.observe(el));
-
-      } else {
-        revelar.forEach((el) => el.classList.add('visivel'));
-      }
+      // Revela seções suavemente ao rolar. Dispara antes de a seção entrar na tela e também revela
+      // tudo o que já ficou para trás (rolagem rápida ou pulo por âncora), para nada ficar em branco.
+      // O conteúdo só é escondido depois que este script roda: se o JS falhar, tudo fica visível.
+      const pendentes = new Set(document.querySelectorAll('.revelar'));
+      let agendado = false;
+      const revelarVisiveis = () => {
+        agendado = false;
+        const limite = window.innerHeight * 1.15;
+        for (const el of pendentes) {
+          if (el.getBoundingClientRect().top < limite) {
+            el.classList.add('visivel');
+            pendentes.delete(el);
+          }
+        }
+        if (!pendentes.size) {
+          window.removeEventListener('scroll', agendar);
+          window.removeEventListener('resize', agendar);
+        }
+      };
+      const agendar = () => {
+        if (!agendado) {
+          agendado = true;
+          requestAnimationFrame(revelarVisiveis);
+        }
+      };
+      revelarVisiveis();
+      document.documentElement.classList.add('revelar-ativo');
+      window.addEventListener('scroll', agendar, { passive: true });
+      window.addEventListener('resize', agendar, { passive: true });
 
       const marcarRolagem = () => document.documentElement.classList.toggle('rolou', window.scrollY > 8);
       marcarRolagem();

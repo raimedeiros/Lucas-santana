@@ -393,17 +393,16 @@ a:hover {
   color: #8a8174;
 }
 
-/* ---------- Animação de entrada (suave) ---------- */
+/* ---------- Animação de entrada (suave) ----------
+   A classe .revelar-ativo é posta pelo script do layout; sem JS, nada é escondido. */
 @media (prefers-reduced-motion: no-preference) {
-  .js .revelar {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+  .revelar-ativo .revelar {
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
   }
 
-  .js .revelar.visivel {
-    opacity: 1;
-    transform: none;
+  .revelar-ativo .revelar:not(.visivel) {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
