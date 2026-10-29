@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Abra o endereço que aparecer no terminal (ex.: `http://localhost:4321/Lucas-santana/`).
+Abra o endereço que aparecer no terminal (ex.: `http://localhost:4321/`).
 
 ## Onde editar
 
